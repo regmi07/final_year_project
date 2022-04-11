@@ -8,6 +8,7 @@ import { hotelById } from '../redux/reducer/hotels/getHotelById.reducer';
 import {reviewsByHotel} from '../redux/reducer/reviews/reviewByHotel.reducer'
 import {likedReviews} from '../redux/reducer/reviews/addLikeToHotelReview.reducer'
 import {postNewReview} from '../redux/reducer/reviews/postReview.reducer'
+import {getAvailableRoomByHotel} from '../redux/reducer/hotels/available_rooms_by_hotel.reducer'
 
 export const store = configureStore({
   reducer: {
@@ -19,6 +20,7 @@ export const store = configureStore({
     getHotelById: hotelById,
     getReviewsByHotel: reviewsByHotel,
     likedReviews: likedReviews,
-    postNewReview: postNewReview 
+    postNewReview: postNewReview,
+    availableRoom: getAvailableRoomByHotel,
   },
 });

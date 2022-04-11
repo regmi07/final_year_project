@@ -60,8 +60,6 @@ exports.findOne = (req, res) => {
 
 //find all the hotels available for booking on selected destinations
 exports.getHotelsAvailableForBookingByDestination = (req, res) => {
-    console.log(req.query)
-    // if(req.query)
     Owner.getHotelsAvailableForBookingByDestination(req.query, (err,data) => {
         if(err)
             res.status(500).send({

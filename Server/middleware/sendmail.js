@@ -3,6 +3,8 @@ const jwt = require('jsonwebtoken')
 const mailConfig = require('../config/mail.config')
 const config = require('../config/config')
 
+let sender = 'travelassist.mail@gmail.com'
+
 const getUrl = (id) => {
     let date = new Date()
     let mail = {
@@ -14,7 +16,35 @@ const getUrl = (id) => {
     return `http://localhost:3000/verify/${token_mail_verification}`
 }
 
-const sendMail = (email, url) => {
+const sendRegisterMail = (email,url) => {
+    sendMail({
+        from: sender,
+        to: email,
+        subject: 'Email Confirmation',
+        html: `<h3>Email Confirmation - Travel Assist</h3><br/><p style="">Please click <a href=${url}>here</a> to verify your email<br/><br/>Thanks for using Travel Assist</p>`
+        }    
+    )  
+}
+
+const sendBookingConfirmationEmail = (email, bookingInfo) => {
+    sendMail({
+        from: sender,
+        to: email,
+        subject: 'Booking Successful',
+        html: `
+                <h3>Booking Successful</h3>
+                <p>
+                    Hello ${bookingInfo.name},<br>
+                    You have successfully booked ${bookingInfo.rooms} rooms at ${bookingInfo.hotel}<br>
+                    Check In Date: ${bookingInfo.checkIn}<br>
+                    check out Date: ${bookingInfo.checkOut}
+                </p>
+                <p>Thank you for using Travel Assist</p>
+            `
+    })
+}
+
+const sendMail = (mailOptions) => {
     var Transport = nodemailer.createTransport({
         service: 'Gmail',
         auth: {
@@ -22,15 +52,6 @@ const sendMail = (email, url) => {
             pass: 'travelassist1'
         },
     })
-
-    var mailOptions
-    let sender = 'travelassist.mail@gmail.com'
-    mailOptions = {
-        from: sender,
-        to: email,
-        subject: 'Email Confirmation',
-        html: `<h3>Email Confirmation - Travel Assist</h3><br/><p style="">Please click <a href=${url}>here</a> to verify your email<br/><br/>Thanks for using Travel Assist</p>`
-    }
 
     Transport.sendMail(mailOptions, (err, res) => {
         if(err){
@@ -43,7 +64,8 @@ const sendMail = (email, url) => {
 
 const mail = {
     getUrl: getUrl,
-    sendMail: sendMail
+    sendRegisterMail: sendRegisterMail,
+    sendBookingConfirmationEmail: sendBookingConfirmationEmail
 }
 
 module.exports = mail

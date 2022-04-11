@@ -7,7 +7,6 @@ export const updateCheckInAction = {
 }
 
 function updateCheckInDate(checkInDate){
-    console.log('check in action called')
     return {type: updateCheckinConstants.UPDATE_CHECKIN_DATE, checkInDate}
 }
 

@@ -4,7 +4,8 @@ import { hotelConstant } from "../constants";
 
 export const hotelActions = {
     getAvailableHotelsByDestination,
-    getHotelById
+    getHotelById,
+    getAvailableRoomByHotel
 }
 
 function getAvailableHotelsByDestination(checkindate, checkoutdate, rooms, destination) {
@@ -81,6 +82,45 @@ function getHotelById(id){
     function failure(error){
         return {
             type: hotelConstant.GET_HOTEL_BY_ID_FAILURE,
+            error
+        }
+    }
+}
+
+function getAvailableRoomByHotel(checkindate, checkoutdate, rooms, hotel){
+    return dispatch => {
+        dispatch(request({checkindate, checkoutdate, rooms, hotel}));
+
+        hotelsService.getAvailableRoomByHotel(checkindate, checkoutdate, rooms, hotel)
+        .then(
+            availableRoomByHotel => {
+                dispatch(success(availableRoomByHotel))
+            },
+            error => {
+                const errormessage = error.response?.data?.message
+                console.log(errormessage);
+                dispatch(failure(errormessage));
+                dispatch(messageActions.error(errormessage));
+            }
+        )
+    }
+    function request(bookingInfo){
+        return {
+            type: hotelConstant.GET_AVAILABLE_ROOM_REQUEST,
+            bookingInfo
+        }
+    }
+
+    function success(availableRoomByHotel) {
+        return {
+            type: hotelConstant.GET_AVAILABLE_ROOM_SUCCESS,
+            availableRoomByHotel
+        }
+    }
+
+    function failure(error){
+        return {
+            type:hotelConstant.GET_AVAILABLE_ROOM_FAILURE,
             error
         }
     }

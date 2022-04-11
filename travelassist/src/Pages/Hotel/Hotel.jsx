@@ -34,7 +34,6 @@ function Hotel() {
         </HotelHero>
         <div className="cardcontainer">
           {
-            // gettingAvailableHotels && <h1>getting hotels...</h1>
             availableHotels? availableHotels.map((hotel) => {
               return <HotelInfoCard key={hotel.id} hotel={hotel} />
             })

@@ -74,4 +74,38 @@ Room.finByRoomType = (roomtype, result) => {
     })
 }
 
+Room.getAvailableRoomByHotel = (check_in_date, check_out_date, rooms, hotelId, result) => {
+    sql.query(`
+    SELECT
+    *
+    FROM
+        rooms r
+    LEFT JOIN booked_room br ON
+        r.roomid = br.room_id
+    LEFT JOIN booking b ON
+        br.booking_id = b.booking_id
+    WHERE
+        (
+            br.room_id IS NULL OR(
+                b.check_out_date < '${check_in_date}' OR b.check_in_date > '${check_out_date}'
+            )
+        ) AND hotel = ${hotelId};
+    `, (err,res) => {
+        if(err){
+            console.log('error occured while getting available room by hotel')
+            result(err,null)
+            return
+        }
+
+        if(res.length >= rooms) {
+            console.log('found available room for booking by hotel')
+            console.log(res)
+            result(null,res)
+            return
+        }
+        
+        result({kind: "not_found"}, null)
+    })
+}
+
 module.exports = Room

@@ -8,7 +8,6 @@ exports.create = (req,res) => {
         })
         return
     }
-    console.log('ownerid: ', req.body.ownerid)
     console.log(req.files)
     req.files.map((file) => {
         imagekit.upload({

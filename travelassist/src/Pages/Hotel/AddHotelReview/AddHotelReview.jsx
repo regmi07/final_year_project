@@ -18,7 +18,6 @@ function AddHotelReview() {
 
   const onFormSubmit = (e) => {
     e.preventDefault()
-    console.log('submitted')
     postReview()
   }
 

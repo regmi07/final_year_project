@@ -37,7 +37,7 @@ function ReviewCard({review}) {
         dispatch(likedReviewActions.deleteLikeFromReview(user.id,review.hotel,review.user))
       }
       else{
-        dispatch(likedReviewActions.addLikeToReview(user.id,review.hotel,review.user))
+        dispatch(likedReviewActions.addLikeToReview(user?.id,review.hotel,review.user))
       }
   }
 

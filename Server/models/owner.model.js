@@ -1,13 +1,9 @@
 const sql = require("./database.js")
-//average rating
-// SELECT id, name, (SELECT avg(rating) FROM ratings where owner = id) as 'average rating' FROM owners;
 
-//reviews
-// SELECT o.id, o.name, r.review, u.username FROM owners o JOIN reviews r ON o.id = r.owner JOIN users u on u.id = r.user  WHERE o.id=3;
+// SELECT * FROM rooms r LEFT JOIN booked_room br ON r.roomid = br.room_id 
+// LEFT JOIN booking b on br.booking_id = b.booking_id 
+// WHERE (br.room_id IS NULL OR (b.check_out_date < '2022-04-09' OR b.check_in_date > '2022-04-09')) AND hotel = 13;
 
-//available bookings for
-// SELECT o.id, o.name, r.roomid, r.roomname, br.booking_id, b.check_in_date, b.check_out_date from owners o JOIN rooms r on o.id = r.hotel LEFT JOIN booked_room br ON r.roomid = br.room_id LEFT JOIN booking b on b.booking_id = br.booking_id WHERE br.room_id IS NULL OR (b.check_out_date < '2022-04-18' OR b.check_in_date > '2022-04-21')
-// GROUP BY o.name HAVING COUNT(*) >= 2;
 //constructor
 const Owner = function(owner) {
     this.name = owner.name

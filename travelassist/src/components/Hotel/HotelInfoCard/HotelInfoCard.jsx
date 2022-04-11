@@ -5,6 +5,8 @@ import Button from '@mui/material/Button'
 import CheckIcon from '@mui/icons-material/Check';
 import DisplayRating from '../../Ratings/DisplayRatings/DisplayRatings';
 
+import {Link} from 'react-router-dom'
+
 function HotelInfoCard({hotel}) {
   return (
     <Container component='div' disableGutters maxWidth='lg' sx={{
@@ -44,7 +46,7 @@ function HotelInfoCard({hotel}) {
            <Typography component='p' variant='body1'>
              NRP. {hotel.pricepernight}
            </Typography>
-           <Button variant='contained' sx={{
+           <Button component={Link} to={`/hotels/${hotel.id}`} variant='contained' sx={{
              width: '100%',
              marginTop: '1em'
            }}>

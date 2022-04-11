@@ -10,6 +10,7 @@ import Description from '../../../components/Hotel/Description/Description'
 import DisplayRating from '../../../components/Ratings/DisplayRatings/DisplayRatings'
 import Map from '../../../components/Map/Map'
 import Reviews from '../../../components/Reviews/Reviews'
+import CheckForAvailability from '../../../components/Hotel/CheckForAvailability/CheckForAvailability'
 
 import {useParams} from 'react-router-dom'
 import {useSelector, useDispatch} from 'react-redux'
@@ -53,6 +54,7 @@ function SpecificHotel() {
           </Typography>
         </Box>
         <ImageGrid images={hotelById?.imagesrc} />
+        <CheckForAvailability hotel={hotelId} />
         <Description description={hotelById.description} rating={hotelById.average_rating} />
         <Map lng={hotelById.longitude} lat={hotelById.latitude} />
         <Reviews hotelId={hotelById.id} />

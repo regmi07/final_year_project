@@ -1,7 +1,12 @@
-const verifypayment = require('../controllers/verifypayment.controller')
-var router = require("express").Router()
-
 module.exports = app => {
-    router.post('/', verifypayment.verifypayment)
-    app.use('/khalti', router)
+    const verifypayment = require('../controllers/verifypayment.controller')
+    const payment = require('../controllers/payment.controller')
+    const {auth} = require("../middleware")
+
+    var router = require("express").Router()
+
+    router.post('/', [auth.verifyToken], payment.create)
+    router.post('/khalti', verifypayment.verifypayment)
+    
+    app.use('/payment', router)
 }

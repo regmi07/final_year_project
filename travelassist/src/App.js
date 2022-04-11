@@ -1,5 +1,4 @@
 import React from 'react';
-// import { Counter } from './features/counter/Counter';
 import './App.css';
 import SignInPage from './Pages/SignIn/SignInPage'
 import SignUpPage from './Pages/SignUp/SignUpPage'
@@ -10,6 +9,7 @@ import SpecificHotel from './Pages/Hotel/SpecificHotel/SpecificHotel';
 import WithNav from './components/Nav/NavOrNot/WithNav'
 import WithoutNav from './components/Nav/NavOrNot/WithoutNav'
 import AddHotelReview from './Pages/Hotel/AddHotelReview/AddHotelReview';
+import Booking from './Pages/Hotel/Booking/Booking'
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
 
 import { BrowserRouter as Router,Route, Routes } from 'react-router-dom';
@@ -28,6 +28,7 @@ function App() {
             <Route path='/destinations/:id' element={<SpecificDestination />} />
             <Route path='/hotels/bydestination/:destid' element={<Hotel />} />
             <Route path='/hotels/:hotelId' element={<SpecificHotel />} />
+            <Route path='/hotels/booking/:hotelId' element={<Booking />} />
             <Route element={<ProtectedRoute />}>
               <Route path="/hotels/addreview/:hotelId" element={<AddHotelReview />} />
             </Route>

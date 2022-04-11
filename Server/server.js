@@ -28,6 +28,8 @@ require('./routes/mail.routes.js')(app)
 require('./routes/payment.routes')(app)
 require('./routes/reviews.routes.js')(app)
 require('./routes/liked_hotel_reviews.routes.js')(app)
+require('./routes/booking.routes.js')(app)
+require('./routes/room.routes.js')(app)
 require('./routes/google.auth.routes.js')(app)
 
 const PORT = process.env.PORT || 8082

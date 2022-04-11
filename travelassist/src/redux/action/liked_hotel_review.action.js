@@ -18,7 +18,7 @@ function addLikeToReview(liked_by,review_for,review_by){
             },
             error => {
                 const errormessage = error.response?.data?.message
-                console.log(errormessage);
+                console.log(error.response);
                 dispatch(failure(errormessage));
                 dispatch(messageActions.error(errormessage));
             }

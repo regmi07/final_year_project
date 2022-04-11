@@ -35,6 +35,7 @@ function register(user){
 }
 
 function handleResponse(response) {
+    console.log('res', response)
     if(response.statusText !== "OK"){
         if(response.status === 401){
             logout()

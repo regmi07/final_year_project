@@ -43,13 +43,13 @@ function CheckInCheckOut() {
         width: '85%',
         padding: '1em .5em',
         backgroundColor: 'rgba(255,255,255,.3)',
+        margin: 'auto',
     }}>
-        <Box sx={{backgroundColor: '#fffafa', flexGrow: 1, margin: '.5em 1em'}}>
+        <Box className='date-container' sx={{backgroundColor: '#fffafa', flexGrow: 1, margin: '.5em 1em'}}>
             <Typography component='p' variant='body2' fontWeight='600'>Check in</Typography>
-            <Box className='date-container' sx={{
+            <Box sx={{
                 position: 'relative',
                 width: '100%',
-                // maxWidth: '180px',
                 minWidth: '150px',
                 padding: '.25em 1.5em',
             }}>
@@ -62,9 +62,9 @@ function CheckInCheckOut() {
                 <input className='input_date' value={checkindate} min={dayjs().format('YYYY-MM-DD')} onChange={handleCheckInDateChange} id='check-in' type='date' />
             </Box>
         </Box>
-        <Box sx={{backgroundColor: '#fffafa', flexGrow: 1, margin: '.5em 1em'}}>
+        <Box className='date-container' sx={{backgroundColor: '#fffafa', flexGrow: 1, margin: '.5em 1em'}}>
             <Typography component='p' variant='body2' fontWeight='600'>Check out</Typography>
-            <Box className='date-container' sx={{
+            <Box sx={{
                 position: 'relative', 
                 // maxWidth: '180px', 
                 minWidth: '150px',
@@ -79,7 +79,7 @@ function CheckInCheckOut() {
                 <input className='input_date' value={checkoutdate} min={dayjs(checkindate).add(1,'day').format('YYYY-MM-DD')} onChange={handleCheckOutDateChange} id='check-out' type='date' />
             </Box>
         </Box>
-        <Box sx={{backgroundColor: '#fffafa', flexGrow: 1, margin: '.5em 1em'}}>
+        <Box className='date-container' sx={{backgroundColor: '#fffafa', flexGrow: 1, margin: '.5em 1em'}}>
             <Typography component='p' variant='body2' fontWeight='600'>Guests</Typography>
             <Box onClick={handleOpenTravelerModal} sx={{
                 minWidth: '150px',

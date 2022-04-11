@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 const User = require('../models/user.model.js')
 const config = require('../config/auth.config')
 // const {mail} = require('../middleware')
-const { getUrl, sendMail } = require('../middleware/sendmail.js')
+const { getUrl, sendRegisterMail } = require('../middleware/sendmail.js')
 
 exports.register = async(req,res) => {
 
@@ -34,7 +34,7 @@ exports.register = async(req,res) => {
             })
         }else{
             const url = getUrl(data.id)
-            sendMail(data.email, url)
+            sendRegisterMail(data.email, url)
             res.send(data)
         }
     })
