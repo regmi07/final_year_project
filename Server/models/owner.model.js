@@ -45,8 +45,6 @@ Owner.findById = (id, result) => {
 
         if(res.length) {
             console.log("found owner: ", res)
-            // console.log(res[0].category.split(','))
-            // console.log({...res[0], category: res[0].category.split(',')})
             result(null,{...res[0], imagesrc: res.map(r => r.imagesrc)})
             return
         }

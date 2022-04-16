@@ -6,7 +6,9 @@ const connection = mysql.createConnection({
     host: databaseconfig.HOST,
     user: databaseconfig.USER,
     password: databaseconfig.PASSWORD,
-    database: databaseconfig.DB
+    database: databaseconfig.DB,
+    timezone: "+00:00",
+    dateStrings: true
 })
 
 connection.connect(error => {

@@ -1,4 +1,3 @@
-
 const DestinationImage = require('../models/destination.image.model')
 const imagekit = require('../config/imagekit.config')
 exports.create = (req,res) => {
@@ -8,8 +7,7 @@ exports.create = (req,res) => {
         })
         return
     }
-    console.log('destid: ', req.body.destinationid)
-    console.log(req.files)
+
     req.files.map((file) => {
         imagekit.upload({
             file: file.buffer.toString('base64'),

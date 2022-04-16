@@ -1,5 +1,5 @@
 import axios from '../../../helpers/axios'
-import authHeader from '../auth/auth.header'
+import authHeader from '../../auth/auth.header'
 
 export const bookingService = {
     makePayment,

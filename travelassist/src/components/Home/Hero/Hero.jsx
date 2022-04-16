@@ -1,5 +1,4 @@
 import React from 'react'
-import Box from '@mui/material/Box'
 import HeroStyle from './Hero.style'
 import Search from '../../Search/Search'
 

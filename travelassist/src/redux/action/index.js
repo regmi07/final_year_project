@@ -4,5 +4,20 @@ import { updateCheckInAction } from './checkincheckout.action'
 import {hotelActions} from './hotels.action'
 import {reviewActions} from './reviews.action'
 import {likedReviewActions} from './liked_hotel_review.action'
+import { bookingActions } from './booking.action'
+import {travelAgencyActions} from './travel_agency.action'
+import {travelPackageActions} from './travel_package.action'
+import {updateDateAndDestinationActions} from './date_and_destination.action'
 
-export {messageActions, userActions, updateCheckInAction, hotelActions, reviewActions, likedReviewActions}
+export {
+    messageActions, 
+    userActions, 
+    updateCheckInAction, 
+    hotelActions, 
+    reviewActions, 
+    likedReviewActions,
+    bookingActions,
+    travelAgencyActions,
+    travelPackageActions,
+    updateDateAndDestinationActions
+}

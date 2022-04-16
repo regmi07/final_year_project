@@ -37,6 +37,7 @@ function CheckInCheckOut() {
   return (
     <Box component='div' variant='div' sx={{
         display: 'flex',
+        gap: '2em',
         justifyContent: 'space-between',
         alignItems: 'center',
         flexWrap: 'wrap',
@@ -45,7 +46,7 @@ function CheckInCheckOut() {
         backgroundColor: 'rgba(255,255,255,.3)',
         margin: 'auto',
     }}>
-        <Box className='date-container' sx={{backgroundColor: '#fffafa', flexGrow: 1, margin: '.5em 1em'}}>
+        <Box className='date-container' >
             <Typography component='p' variant='body2' fontWeight='600'>Check in</Typography>
             <Box sx={{
                 position: 'relative',
@@ -62,7 +63,7 @@ function CheckInCheckOut() {
                 <input className='input_date' value={checkindate} min={dayjs().format('YYYY-MM-DD')} onChange={handleCheckInDateChange} id='check-in' type='date' />
             </Box>
         </Box>
-        <Box className='date-container' sx={{backgroundColor: '#fffafa', flexGrow: 1, margin: '.5em 1em'}}>
+        <Box className='date-container' >
             <Typography component='p' variant='body2' fontWeight='600'>Check out</Typography>
             <Box sx={{
                 position: 'relative', 
@@ -79,7 +80,7 @@ function CheckInCheckOut() {
                 <input className='input_date' value={checkoutdate} min={dayjs(checkindate).add(1,'day').format('YYYY-MM-DD')} onChange={handleCheckOutDateChange} id='check-out' type='date' />
             </Box>
         </Box>
-        <Box className='date-container' sx={{backgroundColor: '#fffafa', flexGrow: 1, margin: '.5em 1em'}}>
+        <Box className='date-container' >
             <Typography component='p' variant='body2' fontWeight='600'>Guests</Typography>
             <Box onClick={handleOpenTravelerModal} sx={{
                 minWidth: '150px',

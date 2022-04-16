@@ -10,7 +10,6 @@ import PeopleIcon from '@mui/icons-material/People';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import IconButton from '@mui/material/IconButton';
-import dayjs from 'dayjs'
 import {updateCheckInAction} from '../../../redux/action'
 
 import {useDispatch} from 'react-redux'

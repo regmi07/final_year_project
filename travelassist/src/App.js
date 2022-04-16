@@ -10,6 +10,9 @@ import WithNav from './components/Nav/NavOrNot/WithNav'
 import WithoutNav from './components/Nav/NavOrNot/WithoutNav'
 import AddHotelReview from './Pages/Hotel/AddHotelReview/AddHotelReview';
 import Booking from './Pages/Hotel/Booking/Booking'
+import TravelPackage from './Pages/TravelPackage/TravelPackage'
+import SpecificTravelPackage from './Pages/TravelPackage/SpecificTravelPackage/SpecificTravelPackage'
+import TravelPackageBooking from './Pages/TravelPackage/TravelPackageBooking/TravelPackageBooking'
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
 
 import { BrowserRouter as Router,Route, Routes } from 'react-router-dom';
@@ -29,6 +32,9 @@ function App() {
             <Route path='/hotels/bydestination/:destid' element={<Hotel />} />
             <Route path='/hotels/:hotelId' element={<SpecificHotel />} />
             <Route path='/hotels/booking/:hotelId' element={<Booking />} />
+            <Route path='/travelpackage' element={<TravelPackage />} />
+            <Route path='/travelpackage/:packageId' element={<SpecificTravelPackage />} />
+            <Route path='/travelpackage/booking/:packageId' element={<TravelPackageBooking />} />
             <Route element={<ProtectedRoute />}>
               <Route path="/hotels/addreview/:hotelId" element={<AddHotelReview />} />
             </Route>

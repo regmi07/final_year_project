@@ -1,0 +1,7 @@
+export const updateDateAndDestinationConstants = {
+    UPDATE_FROM: 'UPDATE_FROM',
+    UPDATE_TO: 'UPDATE_TO',
+    UPDATE_DEPARTURE: 'UPDATE_DEPARTURE',
+    UPDATE_RETURN: 'UPDATE_RETURN',
+    UPDATE_TRAVELLER: 'UPDATE_TRAVELLER',
+}
