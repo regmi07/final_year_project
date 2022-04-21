@@ -3,7 +3,8 @@ import authHeader from '../auth/auth.header'
 
 export const reviewsServices = {
     addReview,
-    getReviewByHotel
+    getReviewByHotel,
+    getReviewByUser
 }
 
 function addReview(userId,owner,rating,review_title,review,date_of_stay){
@@ -23,6 +24,16 @@ function getReviewByHotel(hotelId){
         .then((reviewByHotel) => reviewByHotel)
     }catch(err){
         console.log('error getting review by hotel')
+    }
+}
+
+function getReviewByUser(userId){
+    try{
+        return axios.get(`/reviews/user/${userId}`)
+        .then(handleResponse)
+        .then((reviewByUser) => reviewByUser)
+    }catch(err){
+        console.log('error getting review by user')
     }
 }
 

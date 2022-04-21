@@ -33,6 +33,8 @@ Itinerary.findByTravelPackage = (package_id, result) => {
             result(null,res)
             return
         }
+
+        result({kind: "not_found"}, null)
     })
 }
 

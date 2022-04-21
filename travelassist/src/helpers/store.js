@@ -21,6 +21,13 @@ import {bookTravelPackage} from '../redux/reducer/travel_package/travel_package_
 import {getTravelPackageBookingByBookingId} from '../redux/reducer/travel_package/travel_package_booking/travel_package_booking_by_id.reducer'
 import {getTravelPackageByUser} from '../redux/reducer/travel_package/travel_package_booking/travel_package_booking_by_user.reducer'
 import {updateDateAndDest} from '../redux/reducer/travel_package/update_date_and_dest.reducer'
+import {addItineraryToTravelPackage} from '../redux/reducer/travel_package/itinerary/add_itinerary_to_travel_package.reducer'
+import {getItineraryByTravelPackage} from '../redux/reducer/travel_package/itinerary/get_itinerary_by_travel_package.reducer'
+import {updateItinerary} from '../redux/reducer/travel_package/itinerary/update_itinerary.reducer'
+import {deleteItineraryById} from '../redux/reducer/travel_package/itinerary/delete_itinerary.reducer'
+import {changePassword} from '../redux/reducer/changepassword.reducer'
+import {reviewByUser} from '../redux/reducer/reviews/reviewByUser.reducer'
+import {weatherInformation} from '../redux/reducer/weather.reducer'
 
 export const store = configureStore({
   reducer: {
@@ -45,6 +52,13 @@ export const store = configureStore({
     bookTravelPackage: bookTravelPackage,
     getTravelPackageBookingByBookingId: getTravelPackageBookingByBookingId,
     getTravelPackageByUser: getTravelPackageByUser,
-    updateDateAndDest: updateDateAndDest
+    updateDateAndDest: updateDateAndDest,
+    addItineraryToTravelPackage: addItineraryToTravelPackage,
+    getItineraryByTravelPackage: getItineraryByTravelPackage,
+    updateItinerary: updateItinerary,
+    deleteItineraryById: deleteItineraryById,
+    changePassword: changePassword,
+    reviewByUser: reviewByUser,
+    weatherInformation: weatherInformation
   },
 });

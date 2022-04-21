@@ -7,7 +7,6 @@ const User = function(user) {
     this.username = user.username
     this.password = user.password
     this.role = user.role
-    // this.profilepicture = user.profilepicture
 }
 
 User.create = (newUser, result) => {
@@ -100,8 +99,8 @@ User.getAll = (name,result) => {
 
 User.updateById = (id,user,result) => {
     sql.query(
-        "UPDATE users SET name = ?, email = ?, username = ?, password = ? WHERE id = ?",
-        [user.name, user.email, user.username, user.password,id],
+        "UPDATE users SET name = ?, email = ?, username = ? WHERE id = ?",
+        [user.name, user.email, user.username, id],
         (err, res) => {
             if(err) {
                 console.log("error: ", err)
@@ -138,6 +137,51 @@ User.updateBy = (id,field,value,result) => {
         result(null, {id: id, field: field, value: value})
     })
 } 
+
+User.updateProfilePicture = (id, profilePicture, result) => {
+    sql.query(`UPDATE users SET profilePicture = '${profilePicture}' WHERE id= ${id}`, (err,res) => {
+        if(err){
+            console.log("error: ", err)
+                result(null,err)
+                return
+        }
+        if(res.affectedRows == 0) {
+            result({kind: "not_found"}, null)
+            return
+        }
+
+        console.log(`updated profile picture of user: ${id}`)
+        result(null, {id: id, profilePicture: profilePicture})
+    })
+}
+
+User.updatePassword = (id, password, result) => {
+    sql.query(`UPDATE users SET password = '${password}' WHERE id=${id}`, (err,res) => {
+        if(err){
+            console.log("error: ", err)
+                result(null,err)
+                return
+        }
+        if(res.affectedRows == 0) {
+            result({kind: "not_found"}, null)
+            return
+        }
+
+        console.log(`updated password of user: ${id} `)
+        result(null, {id: id})
+    })
+}
+
+User.findPasswordById = (id, result) => {
+    sql.query(`SELECT password FROM users WHERE id=${id}`, (err,res) => {
+        if(err){
+            console.log(err, ' while getting password by user id')
+            result(null,err)
+            return
+        }
+        result(null, res)
+    })
+}
 
 User.remove = (id,result) => {
     sql.query("DELETE FROM users WHERE userid = ?", id, (err,res) => {

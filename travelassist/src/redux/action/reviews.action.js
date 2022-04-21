@@ -4,7 +4,8 @@ import { reviewsConstant } from '../constants'
 
 export const reviewActions = {
     postReview,
-    getReviewByHotel
+    getReviewByHotel,
+    getReviewByUser
 }
 
 function postReview(userId,owner,rating,review_title,review,date_of_stay){
@@ -80,6 +81,45 @@ function getReviewByHotel(hotelId){
     function failure(error){
         return {
             type: reviewsConstant.REVIEW_BY_HOTEL_FAILURE,
+            error
+        }
+    }
+}
+
+function getReviewByUser(userId){
+    return dispatch => {
+        dispatch(request({userId}))
+
+        reviewsServices.getReviewByUser(userId)
+        .then(
+            reviewByUser => {
+                dispatch(success(reviewByUser))
+            },
+            error => {
+                const errormessage = error.response?.data?.message
+                console.log(errormessage);
+                dispatch(failure(errormessage));
+                dispatch(messageActions.error(errormessage));
+            }
+        )
+    }
+    function request(userId){
+        return {
+            type: reviewsConstant.REVIEW_BY_USER_REQUEST,
+            userId
+        }
+    }
+
+    function success(reviewByUser){
+        return {
+            type: reviewsConstant.REVIEW_BY_USER_SUCCESS,
+            reviewByUser
+        }
+    }
+
+    function failure(error){
+        return {
+            type: reviewsConstant.REVIEW_BY_USER_FAILURE,
             error
         }
     }

@@ -9,6 +9,7 @@ import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 
 import ImageGrid from '../../../components/ImageGrid/ImageGrid'
+import Itinerary from '../../../components/TravelPackage/Itinerary/Itinerary'
 import {WrapperBox} from '../../Hotel/SpecificHotel/SpecificHotel.style'
 import {CustomTypography} from '../../../components/TravelPackage/TravelPackage.style'
 
@@ -42,6 +43,9 @@ function SpecificTravelPackage() {
               <Typography component='div' variant='body2' sx={{textAlign: 'justify'}}>
                 {travelPackageById.description}
               </Typography>
+            </WrapperBox>
+            <WrapperBox sx={{marginTop: '1em'}}>
+              <Itinerary travel_package_id={packageId} />
             </WrapperBox>
           </Box>
           <Box sx={{flex: '1 3', maxWidth: '400px'}}>

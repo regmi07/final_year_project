@@ -4,7 +4,7 @@ module.exports = app => {
 
     var router = require("express").Router();
 
-    router.post("/",[auth.verifyToken, auth.isOwner],itinerary.create)
+    router.post("/",itinerary.create)
 
     router.get("/travelpackage/:package_id", itinerary.findByTravelPackage)
 

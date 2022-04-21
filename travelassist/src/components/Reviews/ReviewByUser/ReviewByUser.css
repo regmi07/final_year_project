@@ -1,0 +1,13 @@
+.span-bold{
+    font-weight: 600;
+}
+
+a {
+    text-decoration: none;
+    color: #0176a5;
+}
+
+a:hover{
+    text-decoration: underline;
+    color: green;
+}

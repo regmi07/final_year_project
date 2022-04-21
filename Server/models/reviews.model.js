@@ -22,24 +22,9 @@ Review.create = (newReview, result) => {
     })
 }
 
-Review.findById = (user, hotel, result) => {
-    sql.query(`SELECT * FROM reviews WHERE user = ${user} AND owner=${hotel}`, (err,res) => {
-        if(err){
-            console.log('err')
-            result(err,null)
-            return
-        }
-
-        if(res.length) {
-            console.log("found reviews: ", res[0])
-            result(null,{...res[0]})
-            return
-        }
-
-        //not found reviews with the id
-        result({kind: "not_found"}, null)
-    })
-}
+// Review.findById = (user, result) => {
+    
+// }
 
 Review.findByOwner = (owner, result) => {
     sql.query(`SELECT r.user, r.owner as "hotel", r.review_title, r.review, r.rating, r.date_of_stay, r.updated_on, u.username, u.name, u.profilepicture, 
@@ -65,7 +50,10 @@ Review.findByOwner = (owner, result) => {
 }
 
 Review.findByUser = (user, result) => {
-    sql.query(`SELECT * FROM reviews WHERE user = ${user}`, (err,res) => {
+    sql.query(`SELECT r.review_title, r.review, r.date_of_stay, r.rating, r.created_on, r.owner as 'hotel',
+    (SELECT name FROM owners WHERE id=r.owner) as 'review_for', 
+    (SELECT count(liked_by) FROM liked_hotel_reviews WHERE review_by = r.user AND review_for = r.owner) as 'total_likes' 
+    FROM reviews r WHERE r.user=${user}`, (err,res) => {
         if(err){
             console.log('err')
             result(err,null)
@@ -74,7 +62,7 @@ Review.findByUser = (user, result) => {
 
         if(res.length) {
             console.log("found reviews: ", res)
-            result(null,{...res})
+            result(null,res)
             return
         }
 

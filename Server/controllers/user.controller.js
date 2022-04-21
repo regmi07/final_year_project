@@ -1,4 +1,8 @@
 const User = require("../models/user.model.js");
+const imagekit = require('../config/imagekit.config')
+
+const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 
 // Create and Save a new User
 exports.create = (req, res) => {
@@ -81,17 +85,99 @@ exports.findBy = (req,res) => {
     })
 }
 
+exports.updatePassword = (req,res) => {
+    if (!req.body) {
+        res.status(400).send({
+          message: "Content can not be empty!"
+        });
+    }
+
+    User.findPasswordById(req.userId, async(err,data) => {
+        if(err?.kind){
+            res.status(400).send({
+                type: 'Invalid Id',
+                message: "Id is invalid"
+            })
+        }else if(err){
+            res.status(500).send({
+                message: err.message || "Some error occured while updating password"
+            })
+        }
+        else{
+            console.log(data)
+            const validPass = await bcrypt.compare(req.body.currentpassword,data[0].password)
+            if(!validPass){
+                console.log('invalid password')
+                res.status(400).send({
+                    message: 'current password is invalid'
+                })
+            }else{
+                const salt = await bcrypt.genSalt(10)
+                const hasPassword = await bcrypt.hash(req.body.newpassword, salt)
+                User.updatePassword(req.userId,hasPassword, async(err, data) => {
+                    if(err){
+                        res.status(500).send({
+                            message: err.message || "Some error occured while updating password"
+                        })
+                    }
+
+                    res.status(200).send({message: 'Password updated successfully'})
+                })
+            }
+        }
+    })
+}
+
+exports.updateProfilePicture = (req,res) => {
+    if(!req.file){
+        res.status(400).send({
+            message: "Content cannot be empty"
+        })
+        return
+    }
+
+    const {userId} = req.params
+    imagekit.upload({
+        file: req.file.buffer.toString('base64'),
+        fileName: req.file.originalname,
+        folder: 'user_profile_picture'
+    }, (err, response) => {
+        if(err){
+            console.log('error while uploading profile picture: ', err)
+            return res.status(500).json({
+                status: "failed",
+                message: "An error occured during file upload. Please try again."
+              })
+        }else{
+            User.updateProfilePicture(userId,response.url, (err,data) => {
+                if(err){
+                    console.log('error while changing profile picture in database: ', err)
+                    res.status(500).send({
+                        message: err.message || "some error occured while creating new hotelimage"
+                    })
+                }
+
+                res.send({profilePicture: response.url})
+            })
+        }
+    })
+}
+
 // Update a User identified by the id in the request
 exports.update = (req, res) => {
     if (!req.body) {
         res.status(400).send({
           message: "Content can not be empty!"
         });
-      }
+    }
     
       User.updateById(
         req.params.id,
-        new User(req.body),
+        {
+            name: req.body.name,
+            email: req.body.email,
+            username: req.body.username
+        },
         (err, data) => {
           if (err) {
             if (err.kind === "not_found") {

@@ -65,16 +65,11 @@ exports.signin = (req,res) => {
                     message: 'password is invalid'
                 })
             }
-            // }else if(req.body.role.toLowerCase() !== data.role.toLowerCase()){
-            //     res.status(400).send({
-            //         type: `Invalid role`,
-            //         message: `${req.body.username} doesn't have ${req.body.role} access`
-            //     })
-            // }
             else{
                 const accessToken = jwt.sign({id: data.id, username: data.username}, config.secret, {expiresIn: '1d'})
                 res.status(200).send({
                     id: data.id,
+                    name: data.name,
                     username: data.username,
                     email: data.email,
                     role: data.role,

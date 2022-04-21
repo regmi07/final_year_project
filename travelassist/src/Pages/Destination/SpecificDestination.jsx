@@ -9,6 +9,8 @@ import Typography from '@mui/material/Typography'
 import Carousel from '../../components/Carousel/Carousel'
 import Row from '../../components/Row/Row'
 
+import WeatherComponent from '../../components/Weather/WeatherComponent'
+
 import {ImageContainer} from '../../components/Carousel/Carousel.style'
 
 import {useParams} from 'react-router-dom'
@@ -62,6 +64,7 @@ function SpecificDestination() {
           }}>
               Explore <span style={{color: 'orange'}}>{destination.name}</span>
           </Typography>
+          <WeatherComponent lon={destination.longitude} lat={destination.latitude} />
         </ImageContainer>
         <Box component='div' sx={{
             padding: '2em',

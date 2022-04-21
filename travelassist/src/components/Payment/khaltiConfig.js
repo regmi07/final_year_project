@@ -15,7 +15,6 @@ let config = {
                 token: payload.token,
                 amount: payload.amount,
             };
-            
               axios
               .post(
                 `khalti/`, data, {headers: {'Authorization': 'key test_secret_key_e69ea815b1f9408b85525d8df82fee6a'}}

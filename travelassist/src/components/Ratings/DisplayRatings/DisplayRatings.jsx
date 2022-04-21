@@ -17,7 +17,6 @@ const labels = {
 };
 
 export default function DisplayRating({rating, size = 'medium'}) {
-  console.log(rating)
   return (
     <Box
       sx={{
