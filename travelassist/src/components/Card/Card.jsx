@@ -10,7 +10,38 @@ import { CustomCardContent, CustomCardAction } from './Card.style';
 
 import {Link} from 'react-router-dom'
 
+import {useSelector, useDispatch} from 'react-redux'
+import {visitListActions} from '../../redux/action/visit_list.action'
+
 export default function CardComponent({data, url}) {
+
+  const {user} = useSelector(state => state.signin)
+  const {planToVisitListByUser} = useSelector(state => state.planToVisitListByUser)
+
+  const dispatch = useDispatch()
+
+  const isInPlanToVisitList = () => {
+      if(planToVisitListByUser){
+        return planToVisitListByUser.some(
+          list => {return list.destination === data?.id}
+        )
+      }
+      return false
+  }
+
+  const [checked, setChecked] = React.useState(isInPlanToVisitList())
+  console.log(checked, " :checked", data.id)
+
+  const onCheckBoxChange = () => {
+      if(checked){
+        dispatch(visitListActions.removePlanToVisitListById(user.id,data?.id))
+      }else{
+        dispatch(visitListActions.createPlanToVisitList({user: user.id, destination: data.id, type: 'plan to visit'}))
+      }
+
+      setChecked(!checked)
+  }
+
   return (
     <Card sx={{ 
       maxWidth: 270, 
@@ -26,7 +57,6 @@ export default function CardComponent({data, url}) {
         <CardMedia
           component="img"
           alt={data.name}
-          // image={`${require('../../assests/home_hero_image.jpg')}`}
           image={data.coverimage}
           height= '100%'
         />
@@ -37,7 +67,7 @@ export default function CardComponent({data, url}) {
         </CustomCardContent>
       </Box>
       <CustomCardAction>
-        <Checkbox label='favourite' icon={<FavoriteBorder fontSize="medium" />} checkedIcon={<Favorite fontSize="medium" sx={{color: '#ff5d5d'}} />} />
+        <Checkbox label='favourite' checked={isInPlanToVisitList()} onChange={onCheckBoxChange} icon={<FavoriteBorder fontSize="medium" />} checkedIcon={<Favorite fontSize="medium" sx={{color: '#ff5d5d'}} />} />
       </CustomCardAction>
     </Card>
   );

@@ -10,6 +10,7 @@ import {travelPackageActions} from './travel_package.action'
 import {updateDateAndDestinationActions} from './date_and_destination.action'
 import {itineraryActions} from './itinerary.action'
 import {weatherActions} from './weather.action'
+import {visitListActions} from './visit_list.action'
 
 export {
     messageActions, 
@@ -23,5 +24,6 @@ export {
     travelPackageActions,
     updateDateAndDestinationActions,
     itineraryActions,
-    weatherActions
+    weatherActions,
+    visitListActions
 }

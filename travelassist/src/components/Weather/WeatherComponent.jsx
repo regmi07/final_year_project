@@ -49,7 +49,7 @@ function WeatherComponent({lon,lat}){
               </IconButton>
             </Tooltip>
             <Box display={showWeather ? 'block': 'none'} sx={{padding: '1em'}}>
-                <Box sx={{display: 'flex', justifyContent: 'space-between', gap: '10px'}}>
+                <Box sx={{display: 'flex', gap: '10px'}}>
                     <Typography component='p' variant='body1' sx={{fontWeight: 600}}>
                         {dayjs().format('MMMM DD, YYYY')}
                     </Typography>
@@ -57,22 +57,25 @@ function WeatherComponent({lon,lat}){
                         {dayjs().format('dddd')}
                     </Typography>
                 </Box>
-                <Typography component='p' variant='body1' sx={{textAlign: 'left'}}>
+                <Typography component='p' variant='body1' sx={{textAlign: 'left',marginTop: '.5em'}}>
                     Temperature: {weatherInfo?.main.temp} &deg;C
                 </Typography>
-                <Typography component='p' variant='body1' sx={{textAlign: 'left'}}>
+                <Typography component='p' variant='body1' sx={{textAlign: 'left',marginTop: '.5em'}}>
                     Feels like: {weatherInfo?.main.feels_like} &deg;C
                 </Typography>
-                <Typography component='p' variant='body1' sx={{textAlign: 'left'}}>
+                <Typography component='p' variant='body1' sx={{textAlign: 'left',marginTop: '.5em'}}>
                     Sunrise: {new Date(weatherInfo?.sys.sunrise * 1000).toLocaleTimeString('en-NP')}
                 </Typography>
-                <Typography component='p' variant='body1' sx={{textAlign: 'left'}}>
+                <Typography component='p' variant='body1' sx={{textAlign: 'left',marginTop: '.5em'}}>
                     Sunset: {new Date(weatherInfo?.sys.sunset * 1000).toLocaleTimeString('en-NP')}
                 </Typography>
-                <Typography component='p' variant='body1' sx={{textAlign: 'left'}}>
-                    Description: {weatherInfo?.weather[0].main}
+                <Typography component='p' variant='body1' sx={{textAlign: 'left',marginTop: '.5em'}}>
+                    Description: {weatherInfo?.weather[0].description}
                 </Typography>
-                <Typography component='p' variant='body1' sx={{textAlign: 'left'}}>
+                <Typography component='p' variant='body1' sx={{textAlign: 'left',marginTop: '.5em'}}>
+                    Cloudiness: {weatherInfo?.clouds.all} %
+                </Typography>
+                <Typography component='p' variant='body1' sx={{textAlign: 'left',marginTop: '.5em'}}>
                     Humidity: {weatherInfo?.main.humidity} %
                 </Typography>
             </Box>

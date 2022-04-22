@@ -73,9 +73,9 @@ exports.updateReview = (req, res) => {
 }
 
 exports.delete = (req, res) => {
-    const {user, hotel} = req.params
+    const {hotel} = req.params
 
-    Review.remove(user, hotel, (err, data) => {
+    Review.remove(req.userId, hotel, (err, data) => {
         if(err)
             res.status(500).send({
                 message: err.message || "Some error occured while deleting review by id"

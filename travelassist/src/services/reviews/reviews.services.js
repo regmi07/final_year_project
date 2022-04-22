@@ -4,7 +4,8 @@ import authHeader from '../auth/auth.header'
 export const reviewsServices = {
     addReview,
     getReviewByHotel,
-    getReviewByUser
+    getReviewByUser,
+    deleteReviewById
 }
 
 function addReview(userId,owner,rating,review_title,review,date_of_stay){
@@ -37,6 +38,16 @@ function getReviewByUser(userId){
     }
 }
 
+function deleteReviewById(hotel){
+    try{
+        return axios.delete(`/reviews/${hotel}`, {headers: authHeader()})
+        .then(handleResponse, handleError)
+        .then(message => message)
+    }catch(err){
+        console.log('error while deleting review')
+    }
+}
+
 function handleResponse(response) {
     if(response.statusText !== "OK"){
         const error = (response.data && response.data.message) || response.statusText
@@ -45,4 +56,18 @@ function handleResponse(response) {
     }
 
     return response.data
+}
+
+function handleError(err) {
+    console.log('handle error called')
+    console.log('res', err.response)
+    if(err.response.statusText !== "OK"){
+        if(err.response.status === 401){
+            localStorage.removeItem('user')
+            window.location.reload()
+        } 
+        const error = (err.response.data && err.response.data.message) || err.response.statusText
+        console.log(error)
+        return Promise.reject(error)
+    }
 }

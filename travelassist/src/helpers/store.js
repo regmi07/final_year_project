@@ -28,6 +28,10 @@ import {deleteItineraryById} from '../redux/reducer/travel_package/itinerary/del
 import {changePassword} from '../redux/reducer/changepassword.reducer'
 import {reviewByUser} from '../redux/reducer/reviews/reviewByUser.reducer'
 import {weatherInformation} from '../redux/reducer/weather.reducer'
+import {planToVisitListByUser} from '../redux/reducer/visit_list/planToVisitListByUser.reducer'
+import {visitedListByUser} from '../redux/reducer/visit_list/visitedListByUser.reducer'
+import {visitedListByDestination} from '../redux/reducer/visit_list/visited_list_by_destination.reducer'
+import {visitedListById} from '../redux/reducer/visit_list/visited_list_by_id.reducer'
 
 export const store = configureStore({
   reducer: {
@@ -59,6 +63,10 @@ export const store = configureStore({
     deleteItineraryById: deleteItineraryById,
     changePassword: changePassword,
     reviewByUser: reviewByUser,
-    weatherInformation: weatherInformation
+    weatherInformation: weatherInformation,
+    planToVisitListByUser: planToVisitListByUser,
+    visitedListByUser: visitedListByUser,
+    visitedListByDestination: visitedListByDestination,
+    visitedListById: visitedListById
   },
 });

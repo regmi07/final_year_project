@@ -14,6 +14,18 @@ export function reviewByUser(state={}, action){
             }
         case reviewsConstant.REVIEW_BY_User_FAILURE:
             return {}
+        case reviewsConstant.DELETE_REVIEW_REQUEST:
+            return {...state, deletingReview: true}
+        case reviewsConstant.DELETE_REVIEW_SUCCESS:
+            const filteredReview = state.reviewByUser.filter((review) => {
+                return review.hotel !== action.info.hotel
+            })
+            return {
+                deletedReview: true,
+                reviewByUser: filteredReview
+            }
+        case reviewsConstant.DELETE_REVIEW_FAILURE:
+            return {}
         default:
             return state
     }

@@ -12,7 +12,7 @@ module.exports = app => {
 
     router.put("/:id", [auth.verifyToken], reviews.updateReview)
 
-    router.delete("/:id", [auth.verifyToken], reviews.delete)
+    router.delete("/:hotel", [auth.verifyToken], reviews.delete)
 
     app.use('/reviews', router)
 }

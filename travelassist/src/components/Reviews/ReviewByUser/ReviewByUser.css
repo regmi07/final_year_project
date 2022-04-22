@@ -2,12 +2,13 @@
     font-weight: 600;
 }
 
-a {
+.span-bold-parent > a {
     text-decoration: none;
     color: #0176a5;
+    font-weight: 600;
 }
 
-a:hover{
+.span-bold-parent > a:hover{
     text-decoration: underline;
     color: green;
 }

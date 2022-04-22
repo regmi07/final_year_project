@@ -5,7 +5,8 @@ import { reviewsConstant } from '../constants'
 export const reviewActions = {
     postReview,
     getReviewByHotel,
-    getReviewByUser
+    getReviewByUser,
+    deleteReviewById
 }
 
 function postReview(userId,owner,rating,review_title,review,date_of_stay){
@@ -120,6 +121,46 @@ function getReviewByUser(userId){
     function failure(error){
         return {
             type: reviewsConstant.REVIEW_BY_USER_FAILURE,
+            error
+        }
+    }
+}
+
+function deleteReviewById(hotel,userId){
+    return dispatch => {
+        dispatch(request(hotel,userId))
+
+        reviewsServices.deleteReviewById(hotel)
+        .then(
+            message => {
+                dispatch(success(hotel,message))
+            },
+            error => {
+                const errormessage = error.response?.data?.message
+                console.log(errormessage);
+                dispatch(failure(errormessage));
+                dispatch(messageActions.error(errormessage));
+            }
+        )
+    }
+
+    function request(hotel,userId){
+        return {
+            type: reviewsConstant.DELETE_REVIEW_REQUEST,
+            reviewId: {hotel,userId}
+        }
+    }
+
+    function success(message){
+        return {
+            type: reviewsConstant.DELETE_REVIEW_SUCCESS,
+            info: {hotel,message}
+        }
+    }
+
+    function failure(error){
+        return {
+            type: reviewsConstant.DELETE_REVIEW_FAILURE,
             error
         }
     }

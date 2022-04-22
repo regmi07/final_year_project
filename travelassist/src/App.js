@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import SignInPage from './Pages/SignIn/SignInPage'
 import SignUpPage from './Pages/SignUp/SignUpPage'
@@ -16,9 +16,22 @@ import TravelPackageBooking from './Pages/TravelPackage/TravelPackageBooking/Tra
 import Profile from './Pages/Profile/Profile'
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
 
+import {useSelector, useDispatch} from 'react-redux'
+import {visitListActions} from './redux/action/visit_list.action'
+
 import { BrowserRouter as Router,Route, Routes } from 'react-router-dom';
 
 function App() {
+
+  const {user} = useSelector(state => state.signin)
+  // const {planToVisitListByUser} = useSelector(state => state.planToVisitListByUser)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    if(user?.id)
+      dispatch(visitListActions.getPlanToVisitListByUser(user.id))
+  },[dispatch])
+
   return (
     <div className="App">
       <Router>

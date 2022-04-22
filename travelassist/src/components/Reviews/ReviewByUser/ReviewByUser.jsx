@@ -9,8 +9,10 @@ import {Link} from 'react-router-dom'
 
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-import Avatar from '@mui/material/Avatar'
 import ThumbUpIcon from '@mui/icons-material/ThumbUp'
+import DeleteIcon from '@mui/icons-material/Delete';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
 
 import {WrapperBox} from '../../../Pages/Hotel/SpecificHotel/SpecificHotel.style'
 
@@ -26,11 +28,15 @@ function ReviewByUser() {
       dispatch(reviewActions.getReviewByUser(user.id))
   },[dispatch, user.id])
 
+  const onDeleteClick = (hotelId) => {
+    dispatch(reviewActions.deleteReviewById(hotelId,user.id))
+  }
+
   if(gettingReviewByUser){
       return <h3>Getting reviews...</h3>
   }
 
-  console.log(reviewByUser, ' review')
+  console.log(reviewByUser)
 
   return (
     <Box>
@@ -39,12 +45,22 @@ function ReviewByUser() {
             reviewByUser.map((review) => {
                 return (
                     <WrapperBox key={`${user.id} ${review.hotel}`} sx={{marginTop: '0', marginBottom: '2em'}}>
-                        <Typography component='div' variant='p' sx={{
+                        <Box sx={{
+                            display: 'flex', 
+                            justifyContent: 'space-between',
                             borderBottom: '1px solid silver',
-                            textAlign: 'left'
                         }}>
-                            <span className='span-bold'>You</span> wrote review on <span className='span-bold'>{review.created_on.substring(0,10)}</span> for <Typography className='span-bold' component={Link} to={`/hotels/${review.hotel}`}>{review.review_for}</Typography>
-                        </Typography>
+                            <Typography className='span-bold-parent' component='div' variant='p' sx={{
+                                textAlign: 'left'
+                            }}>
+                                <span className='span-bold'>You</span> wrote review on <span className='span-bold'>{review.created_on.substring(0,10)}</span> for <Typography className='span-bold' component={Link} to={`/hotels/${review.hotel}`}>{review.review_for}</Typography>
+                            </Typography>
+                            <Tooltip title="Delete Review">
+                                <IconButton onClick={() => onDeleteClick(review.hotel)}>
+                                    <DeleteIcon />
+                                </IconButton>
+                            </Tooltip>
+                        </Box>
                         <Box>
                             <Typography component='h5' variant='body1' sx={{textAlign: 'left', marginTop: '.75em', fontWeight: '600'}}>
                                 {review.review_title}
