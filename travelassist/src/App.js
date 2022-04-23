@@ -15,6 +15,8 @@ import SpecificTravelPackage from './Pages/TravelPackage/SpecificTravelPackage/S
 import TravelPackageBooking from './Pages/TravelPackage/TravelPackageBooking/TravelPackageBooking'
 import Profile from './Pages/Profile/Profile'
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
+import VisitList from './Pages/VisitList/VisitList'
+import AddVisitedList from './Pages/VisitList/AddVisitedList';
 
 import {useSelector, useDispatch} from 'react-redux'
 import {visitListActions} from './redux/action/visit_list.action'
@@ -24,12 +26,13 @@ import { BrowserRouter as Router,Route, Routes } from 'react-router-dom';
 function App() {
 
   const {user} = useSelector(state => state.signin)
-  // const {planToVisitListByUser} = useSelector(state => state.planToVisitListByUser)
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if(user?.id)
+    if(user?.id){
       dispatch(visitListActions.getPlanToVisitListByUser(user.id))
+      dispatch(visitListActions.getVisitedListByUser(user.id))
+    }
   },[dispatch])
 
   return (
@@ -52,6 +55,8 @@ function App() {
             <Route element={<ProtectedRoute />}>
               <Route path="/hotels/addreview/:hotelId" element={<AddHotelReview />} />
               <Route path="/profile" element={<Profile />} /> 
+              <Route path="/visitlist" element={<VisitList />} />
+              <Route path='/addvisitedlist/:destinationId' element={<AddVisitedList />} />
             </Route>
           </Route>
         </Routes>

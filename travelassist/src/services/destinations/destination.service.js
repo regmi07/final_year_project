@@ -49,10 +49,6 @@ function getDestinationById(id){
 
 function handleResponse(response) {
     if(response.statusText !== "OK"){
-        // if(response.status === 401){
-        //     // logout()
-        //     window.location.reload()
-        // } 
         const error = (response.data && response.data.message) || response.statusText
         console.log(error)
         return Promise.reject(error)

@@ -10,6 +10,7 @@ import {travelPackageConstant} from './travel_package.constants'
 import {updateDateAndDestinationConstants} from './update_date_and_destination.constants'
 import {weatherConstant} from './weather.constants'
 import {visitListConstants} from './visit_list.constants'
+import {destinationConstants} from './destination.constant'
 
 export {
     messageConstants, 
@@ -24,4 +25,5 @@ export {
     updateDateAndDestinationConstants,
     weatherConstant,
     visitListConstants,
+    destinationConstants
 }

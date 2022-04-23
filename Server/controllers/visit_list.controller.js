@@ -8,7 +8,7 @@ exports.create = (req,res) => {
     }
 
     const newVisitList = new VisitList({
-        user: req.body.user,
+        user: req.userId,
         destination: req.body.destination,
         type: req.body.type,
         visit_summary: req.body.visit_summary,
@@ -19,7 +19,7 @@ exports.create = (req,res) => {
         sites: req.body.sites
     })
 
-    VisitList.findById(req.body.user, req.body.destination, (err, data) => {
+    VisitList.findById(req.userId, req.body.destination, (err, data) => {
         console.log(data, ' data')
         if(err?.kind === "not_found"){
             VisitList.create(newVisitList, (err,data) => {

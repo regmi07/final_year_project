@@ -32,6 +32,8 @@ import {planToVisitListByUser} from '../redux/reducer/visit_list/planToVisitList
 import {visitedListByUser} from '../redux/reducer/visit_list/visitedListByUser.reducer'
 import {visitedListByDestination} from '../redux/reducer/visit_list/visited_list_by_destination.reducer'
 import {visitedListById} from '../redux/reducer/visit_list/visited_list_by_id.reducer'
+import {getDestinationById} from '../redux/reducer/destinations/getDestinationById.reducer'
+import {getAllDestination} from '../redux/reducer/destinations/getAllDestination.reducer'
 
 export const store = configureStore({
   reducer: {
@@ -67,6 +69,8 @@ export const store = configureStore({
     planToVisitListByUser: planToVisitListByUser,
     visitedListByUser: visitedListByUser,
     visitedListByDestination: visitedListByDestination,
-    visitedListById: visitedListById
+    visitedListById: visitedListById,
+    getDestinationById: getDestinationById,
+    getAllDestination: getAllDestination
   },
 });

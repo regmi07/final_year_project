@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography'
 
 import Carousel from '../../components/Carousel/Carousel'
 import Row from '../../components/Row/Row'
+import VisitListDestinationCard from '../../components/VisitList/VisitListDestinationCard'
 
 import WeatherComponent from '../../components/Weather/WeatherComponent'
 
@@ -17,21 +18,20 @@ import {useParams} from 'react-router-dom'
 
 import {specificDestinationRow} from '../../helpers/data/specificDestination.row'
 
-import {destinationService} from '../../services/destinations/destination.service'
+import {destinationActions, visitListActions} from '../../redux/action'
+import {useSelector, useDispatch} from 'react-redux'
 
 function SpecificDestination() {
   const {id} = useParams()
+  const dispatch = useDispatch()
 
-  const [destination, setDestination] = useState({})
-
+  const {destinationById} = useSelector(state => state.getDestinationById)
+  const {visitedListByDestination} = useSelector(state => state.visitedListByDestination)
+  
   useEffect(() => {
-    const fetchDestination = async() => {
-      const dest = await destinationService.getDestinationById(id)
-      setDestination(dest)
-    }
-
-    fetchDestination()
-  }, [id])
+      dispatch(destinationActions.getDestinationById(id))
+      dispatch(visitListActions.getVisitedListByDestination(id))
+  },[id,dispatch])
 
   function isDestinationEmpty(destination){
     for(let dest in destination)
@@ -39,19 +39,19 @@ function SpecificDestination() {
     return true
   }
 
-  if(!destination || isDestinationEmpty(destination)){
+  if(!destinationById || isDestinationEmpty(destinationById)){
     return <div className="load">
       <h1>Loading...</h1>
     </div>
   }
 
-  const index = destination?.description?.indexOf(' ')
+  const index = destinationById?.description?.indexOf(' ')
 
   return (
     <Container maxWidth='lg'>
         <CssBaseline />
         <ImageContainer>
-          <Carousel images={destination.imagesrc} />
+          <Carousel images={destinationById?.imagesrc} />
           <Typography component='div' variant='h4' sx={{ 
               position: 'absolute',
               top: 10,
@@ -62,9 +62,9 @@ function SpecificDestination() {
               fontWeight: '600',
               color: '#fff'
           }}>
-              Explore <span style={{color: 'orange'}}>{destination.name}</span>
+              Explore <span style={{color: 'orange'}}>{destinationById?.name}</span>
           </Typography>
-          <WeatherComponent lon={destination.longitude} lat={destination.latitude} />
+          <WeatherComponent lon={destinationById?.longitude} lat={destinationById?.latitude} />
         </ImageContainer>
         <Box component='div' sx={{
             padding: '2em',
@@ -76,11 +76,11 @@ function SpecificDestination() {
             }}>
                 <strong>
                   {
-                    destination.description.substring(0, index)
+                    destinationById?.description.substring(0, index)
                   }
                 </strong>
                 {
-                  destination.description.substring(index, destination.description.length - 1)
+                  destinationById?.description.substring(index, destinationById?.description.length - 1)
                 }
             </Typography>
         </Box>
@@ -89,10 +89,26 @@ function SpecificDestination() {
         }}>
           {
             specificDestinationRow.map((destrow, index) => {
-              return <Row key={index} title={destrow.title} fetchFrom={destrow.fetch} dest={destination.name} />
+              return <Row key={index} title={destrow.title} fetchFrom={destrow.fetch} dest={destinationById?.name} />
             })
           }
         </Box>
+        {
+            visitedListByDestination?.length > 0 && (
+              <Box component='div' sx={{
+                marginTop: '4em'
+              }}>
+                <Typography component='h3' variant='h5' sx={{fontWeight: 600, textAlign: 'left'}}>
+                  What people who already visited {destinationById.name} say
+                </Typography>
+                {
+                  visitedListByDestination.map((list) => {
+                    return <VisitListDestinationCard key={`${list.destination} ${list.name}`} list={list} />
+                  })
+                }
+              </Box>
+            )
+        }
     </Container>
   )
 }

@@ -18,6 +18,7 @@ export function visitedListByUser(state = {}, action){
                 visitedListByUser: state.visitedListByUser,
             }
         case visitListConstants.CREATE_VISITED_LIST_SUCCESS:
+            console.log(state.visitedListByUser)
             return {
                 createdVisitedList: true,
                 visitedListByUser: [...state.visitedListByUser,action.createdVisitList]

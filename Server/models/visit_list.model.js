@@ -64,7 +64,7 @@ VisitList.findVisitedListByUser = (user, result) => {
 }
 
 VisitList.findVisitedListByDestination = (destination, result) => {
-    sql.query(`SELECT vl.user, vl.visit_summary, vl.stay, vl.transportation, vl.sites, u.username, u.name, u.profilePicture  
+    sql.query(`SELECT vl.user, vl.visit_summary, vl.experience, vl.stay, vl.transportation, vl.sites, u.username, u.name, u.profilePicture  
     FROM visit_list vl 
     JOIN users u ON vl.user = u.id 
     WHERE vl.destination=${destination} AND vl.type = 'visited'`,

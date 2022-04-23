@@ -25,7 +25,7 @@ Destination.create = (newDestination, result) => {
 }
 
 Destination.findById = (id, result) => {
-    sql.execute(`SELECT d.id, d.name, d.longitude, d.latitude, d.averageRating, d.description, d.category as category, di.imagesrc FROM destinations d JOIN destinationimage di on d.id = di.destinationid WHERE d.id = ${id}`, (err,res) => {
+    sql.execute(`SELECT d.id, d.name, d.longitude, d.location, d.latitude, d.averageRating, d.description, d.category as category, di.imagesrc FROM destinations d JOIN destinationimage di on d.id = di.destinationid WHERE d.id = ${id}`, (err,res) => {
         if(err){
             console.log("error: ", err)
             result(err,null)

@@ -20,27 +20,25 @@ export default function CardComponent({data, url}) {
 
   const dispatch = useDispatch()
 
-  const isInPlanToVisitList = () => {
-      if(planToVisitListByUser){
-        return planToVisitListByUser.some(
-          list => {return list.destination === data?.id}
-        )
-      }
-      return false
-  }
+  const findInPlanToVisitList = () => {
+    return planToVisitListByUser?.findIndex((list) => {
+        if(list)
+          return list.destination === data.id
+        return -1
+    })
+}
 
-  const [checked, setChecked] = React.useState(isInPlanToVisitList())
-  console.log(checked, " :checked", data.id)
+const isInList = () => {
+  return findInPlanToVisitList() >= 0 ? true : false
+}
 
-  const onCheckBoxChange = () => {
-      if(checked){
-        dispatch(visitListActions.removePlanToVisitListById(user.id,data?.id))
-      }else{
-        dispatch(visitListActions.createPlanToVisitList({user: user.id, destination: data.id, type: 'plan to visit'}))
-      }
-
-      setChecked(!checked)
-  }
+const onCheckBoxChange = () => {
+    if(isInList()){
+      dispatch(visitListActions.removePlanToVisitListById(user.id,data?.id))
+    }else{
+      dispatch(visitListActions.createPlanToVisitList({user: user.id, destination: data.id, type: 'plan to visit'}))
+    }
+}
 
   return (
     <Card sx={{ 
@@ -67,7 +65,7 @@ export default function CardComponent({data, url}) {
         </CustomCardContent>
       </Box>
       <CustomCardAction>
-        <Checkbox label='favourite' checked={isInPlanToVisitList()} onChange={onCheckBoxChange} icon={<FavoriteBorder fontSize="medium" />} checkedIcon={<Favorite fontSize="medium" sx={{color: '#ff5d5d'}} />} />
+        <Checkbox label='favourite' checked={isInList()} onChange={onCheckBoxChange} icon={<FavoriteBorder fontSize="medium" />} checkedIcon={<Favorite fontSize="medium" sx={{color: '#ff5d5d'}} />} />
       </CustomCardAction>
     </Card>
   );
