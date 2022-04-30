@@ -128,6 +128,30 @@ exports.delete = (req, res) => {
   })
 };
 
+exports.getUnverifiedOwners = (req,res) => {
+    Owner.getUnVerifiedOwner((err,data) => {
+        if(err)
+            res.status(500).send({
+                message: err.message || "Some error occured while deleting owner by id"
+            })
+        else
+            res.send(data)
+    })
+}
+
+exports.verifyOwner = (req,res) => {
+    const {hotelId} = req.params
+    console.log('hotel: ', hotelId)
+    Owner.verifyOwner(hotelId, (err,data) => {
+        if(err)
+            res.status(500).send({
+                message: err.message || "Some error occured while deleting owner by id"
+            })
+        else
+            res.send(data)
+    })
+}
+
 // Delete all Owners from the database.
 exports.deleteAll = (req, res) => {
   

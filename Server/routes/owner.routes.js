@@ -18,6 +18,7 @@ module.exports = app => {
     router.get("/availablehotels", owners.getHotelsAvailableForBookingByDestination)
 
     router.get("/bydest/:destid", owners.getByDestination)
+    router.get("/unverifiedhotels", [auth.verifyToken, auth.isAdmin], owners.getUnverifiedOwners)
 
     // Retrieve all Owner
     router.get("/", owners.findAll);
@@ -28,6 +29,7 @@ module.exports = app => {
     
     // Update a Owner with id
     router.put("/:id", [auth.verifyToken, auth.isAdmin, geocoding.forwardGeocoding], owners.update);
+    router.put("/verifyowner/:hotelId", owners.verifyOwner)
   
     // Delete a Owner with id
     router.delete("/:id", [auth.verifyToken, auth.isAdmin], owners.delete);

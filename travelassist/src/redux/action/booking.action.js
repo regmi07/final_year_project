@@ -4,7 +4,8 @@ import { bookingConstant } from "../constants";
 
 export const bookingActions = {
     makePayment, 
-    bookRoom
+    bookRoom,
+    getBookingByUser
 }
 
 function makePayment(payment_type, paid_amount, total_amount){
@@ -47,11 +48,11 @@ function makePayment(payment_type, paid_amount, total_amount){
     }
 }
 
-function bookRoom(total_traveler,user_id,payment_id,check_in_date,check_out_date, room_id, name, email, hotel){
+function bookRoom(payment_type, paid_amount, total_amount,total_traveler,user_id,check_in_date,check_out_date, room_id, name, email, hotel){
     return dispatch => {
-        dispatch(request({total_traveler,user_id,payment_id,check_in_date,check_out_date, room_id, name, email, hotel}))
+        dispatch(request({total_traveler,user_id,check_in_date,check_out_date, room_id, name, email, hotel}))
 
-        bookingService.bookRoom(total_traveler,user_id,payment_id,check_in_date,check_out_date, room_id, name, email, hotel)
+        bookingService.bookRoom(payment_type, paid_amount, total_amount,total_traveler,user_id,check_in_date,check_out_date, room_id, name, email, hotel)
         .then(
             bookingDetais => {
                 dispatch(success(bookingDetais));
@@ -82,6 +83,46 @@ function bookRoom(total_traveler,user_id,payment_id,check_in_date,check_out_date
     function failure(error){
         return {
             type:bookingConstant.BOOKING_FAILURE,
+            error
+        }
+    }
+}
+
+function getBookingByUser(user_id){
+    return dispatch => {
+        dispatch(request(user_id))
+
+        bookingService.getBookingByUser(user_id)
+        .then(
+            bookingByUser => {
+                dispatch(success(bookingByUser))
+            },
+            error => {
+                const errormessage = error.response?.data?.message
+                console.log(errormessage);
+                dispatch(failure(errormessage));
+                dispatch(messageActions.error(errormessage));
+            }
+        )
+    }
+
+    function request(user_id){
+        return {
+            type: bookingConstant.GET_BOOKING_BY_USER_REQUEST,
+            user_id
+        }
+    }
+
+    function success(bookingByUser){
+        return {
+            type: bookingConstant.GET_BOOKING_BY_USER_SUCCESS,
+            bookingByUser
+        }
+    }
+
+    function failure(error){
+        return {
+            type: bookingConstant.GET_BOOKING_BY_USER_FAILURE,
             error
         }
     }

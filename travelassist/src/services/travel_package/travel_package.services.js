@@ -76,7 +76,7 @@ function getTravelPackageBookingById(id){
 
 function getTravelPackageBookingByUser(user_id){
     try{
-        return axios.get(`travelpackage/booking/${user_id}`, {headers: authHeader()})
+        return axios.get(`travelpackage/booking/user/${user_id}`, {headers: authHeader()})
         .then(handleResponse)
         .then(travelPackageBookingByUser => travelPackageBookingByUser)
     }catch(err){

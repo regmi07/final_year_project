@@ -56,6 +56,29 @@ exports.updateUser = (req,res) => {
     })
 }
 
+exports.getUnverifiedTravelAgency = (req,res) => {
+    TravelAgency.getUnverifiedTravelAgency((err,data) => {
+        if(err)
+            res.status(500).send({
+                message: err.message || "Some error occured while getting unverified travel agency"
+            })
+        else
+            res.send(data)
+    })
+}
+
+exports.verifyTravelAgency = (req,res) => {
+    const {agencyId} = req.params
+    TravelAgency.verifyTravelAgency(agencyId, (err,data) => {
+        if(err)
+                res.status(500).send({
+                    message: err.message || "Some error occured while veryfing travel agency"
+                })
+            else
+                res.send(data)
+    })
+}
+
 exports.updateAll = (req,res) => {
     const {id} = req.params
 

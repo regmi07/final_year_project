@@ -59,6 +59,36 @@ TravelAgency.updateUser = (id,user,result) => {
     })
 }
 
+TravelAgency.getUnverifiedTravelAgency = (result) => {
+    sql.query(`SELECT * FROM travel_agency WHERE isVerified = 0`, (err,res) => {
+        if(err){
+            console.log('error: ', err)
+            result(err,null)
+            return
+        }
+
+        if(res.length){
+            console.log('found unverified travel package', res)
+            result(null,res)
+            return
+        }
+
+        result({kind: "not_found"},null)
+    })
+}
+
+TravelAgency.verifyTravelAgency = (agencyId, result) => {
+    sql.query(`UPDATE travel_agency SET isVerified = 1 WHERE id = ${agencyId}`, (err,res) => {
+        if(err){
+            console.log('error while verifying travel agency: ', err)
+            result(err,null)
+            return
+        }
+    })
+
+    result(null, {agencyId})
+}
+
 TravelAgency.updateAll = (id, travelAgency, result) => {
     sql.query(`UPDATE travel_agency SET ? WHERE id = ?`, [travelAgency, id], (err, res) => {
         if(err){

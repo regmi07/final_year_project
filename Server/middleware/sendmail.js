@@ -44,6 +44,24 @@ const sendBookingConfirmationEmail = (email, bookingInfo) => {
     })
 }
 
+const sendTravelPackageBookingConfirmationEmail = (email, bookingInfo) => {
+    sendMail({
+        from: sender,
+        to: email,
+        subject: 'Booking Successful',
+        html: `
+                <h3>Booking Successful</h3>
+                <p>
+                    Hello ${bookingInfo.name},<br>
+                    You have successfully booked ${bookingInfo.title} for ${bookingInfo.total_traveler} traveller<br>
+                    Departure: ${bookingInfo.departure}<br>
+                    Return: ${bookingInfo.return}
+                </p>
+                <p>Thank you for using Travel Assist</p>
+            `
+    })
+}
+
 const sendMail = (mailOptions) => {
     var Transport = nodemailer.createTransport({
         service: 'Gmail',
@@ -65,7 +83,8 @@ const sendMail = (mailOptions) => {
 const mail = {
     getUrl: getUrl,
     sendRegisterMail: sendRegisterMail,
-    sendBookingConfirmationEmail: sendBookingConfirmationEmail
+    sendBookingConfirmationEmail: sendBookingConfirmationEmail,
+    sendTravelPackageBookingConfirmationEmail: sendTravelPackageBookingConfirmationEmail
 }
 
 module.exports = mail

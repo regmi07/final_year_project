@@ -28,6 +28,17 @@ exports.create = (req, res) => {
     })
 }
 
+exports.getAllReview = (req,res) => {
+    Review.findAll((err,data) => {
+        if(err)
+            res.status(500).send({
+                message: err.message || "Some error occured while retrieving reviews"
+            })
+        else
+            res.send(data)
+    })
+}
+
     //Retrieve all reviews of particular owner
 exports.getReviewByOwner = (req, res) => {
     const owner = req.params.hotelId
@@ -73,9 +84,10 @@ exports.updateReview = (req, res) => {
 }
 
 exports.delete = (req, res) => {
-    const {hotel} = req.params
+    const {hotel,user} = req.params
+    const toberemoved = user ? user: req.userId
 
-    Review.remove(req.userId, hotel, (err, data) => {
+    Review.remove(toberemoved, hotel, (err, data) => {
         if(err)
             res.status(500).send({
                 message: err.message || "Some error occured while deleting review by id"

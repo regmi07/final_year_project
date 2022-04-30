@@ -34,6 +34,7 @@ import {visitedListByDestination} from '../redux/reducer/visit_list/visited_list
 import {visitedListById} from '../redux/reducer/visit_list/visited_list_by_id.reducer'
 import {getDestinationById} from '../redux/reducer/destinations/getDestinationById.reducer'
 import {getAllDestination} from '../redux/reducer/destinations/getAllDestination.reducer'
+import {hotelBookingByUser} from '../redux/reducer/hotels/booking/bookingbyuser.reducer'
 
 export const store = configureStore({
   reducer: {
@@ -71,6 +72,7 @@ export const store = configureStore({
     visitedListByDestination: visitedListByDestination,
     visitedListById: visitedListById,
     getDestinationById: getDestinationById,
-    getAllDestination: getAllDestination
+    getAllDestination: getAllDestination,
+    hotelBookingByUser: hotelBookingByUser
   },
 });

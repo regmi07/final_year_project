@@ -10,14 +10,14 @@ let config = {
     "eventHandler": {
         onSuccess (payload) {
             // hit merchant api for initiating verfication
-            console.log(payload);
+            console.log(payload, ' :payload');
             let data = {
                 token: payload.token,
                 amount: payload.amount,
             };
               axios
               .post(
-                `khalti/`, data, {headers: {'Authorization': 'key test_secret_key_e69ea815b1f9408b85525d8df82fee6a'}}
+                `/payment/khalti`, data, {headers: {'Authorization': 'key test_secret_key_e69ea815b1f9408b85525d8df82fee6a'}}
               )
               .then((response) => {
                 console.log(response.data);
@@ -30,7 +30,7 @@ let config = {
         // onError handler is optional
         onError (error) {
             // handle errors
-            console.log(error);
+            console.log('error: ',error);
         },
         onClose () {
             console.log('widget is closing');

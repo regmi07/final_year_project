@@ -78,8 +78,6 @@ function SignIn() {
                 mt={2}
                 value={loginInfo.password}
                 onChange={handleChange}
-                // error={type === 'Invalid Password'}
-                // helperText={type === 'Invalid Password' && message}
             />
             <Box>
                 <FormControl>

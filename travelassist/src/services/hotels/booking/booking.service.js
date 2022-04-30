@@ -3,7 +3,8 @@ import authHeader from '../../auth/auth.header'
 
 export const bookingService = {
     makePayment,
-    bookRoom
+    bookRoom,
+    getBookingByUser
 }
 
 function makePayment(payment_type, paid_amount, total_amount){
@@ -16,10 +17,10 @@ function makePayment(payment_type, paid_amount, total_amount){
     }
 }
 
-function bookRoom(total_traveler,user_id,payment_id,check_in_date,check_out_date, room_id, name, email, hotel){
+function bookRoom(payment_type, paid_amount, total_amount,total_traveler,user_id,check_in_date,check_out_date, room_id, name, email, hotel){
     try{
         return axios.post('/booking', {
-            total_traveler, user_id, payment_id, check_in_date, check_out_date, room_id, name, email, hotel
+            payment_type, paid_amount, total_amount,total_traveler, user_id, check_in_date, check_out_date, room_id, name, email, hotel
         }, {headers: authHeader()})
         .then(handleResponse, handleError)
         .then(bookingInfo => bookingInfo)
@@ -27,6 +28,17 @@ function bookRoom(total_traveler,user_id,payment_id,check_in_date,check_out_date
         console.log('error occured while booking')
     }
 }
+
+function getBookingByUser(userId){
+    try{
+        return axios.get(`/booking/user/${userId}`, {headers: authHeader()})
+        .then(handleResponse, handleError)
+        .then(bookingHistoryByUser => bookingHistoryByUser)
+    }catch(err){
+        console.log('error occured while getting booking history by user')
+    }
+}
+
 
 function handleResponse(response) {
     if(response.statusText !== "OK"){
@@ -37,7 +49,6 @@ function handleResponse(response) {
 
     return response.data
 }
-
 
 function handleError(err) {
     if(err.response.statusText !== "OK"){

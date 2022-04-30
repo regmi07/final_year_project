@@ -3,6 +3,12 @@ import React, {useState,useEffect} from 'react'
 import Container from '@mui/material/Container'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
+import Button from '@mui/material/Button'
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
 import {travelPackageActions} from '../../../redux/action/travel_package.action'
 
 import BookingInfo from '../../../components/TravelPackage/TravelPackageBooking/BookingInfo'
@@ -21,6 +27,7 @@ function TravelPackageBooking() {
   const dispatch = useDispatch()
   const {travelPackageById} = useSelector(state => state.travelPackageById)
   const {total_traveler} = useSelector(state => state.updateDateAndDest)
+  const {user} = useSelector(state => state.signin)
 
   useEffect(() => {
       dispatch(travelPackageActions.getTravelPackageById(packageId))
@@ -36,7 +43,29 @@ const onGuestChange = e => {
     setGuest({...guest, [e.target.name]: [e.target.value]})
 }
 
-console.log(travelPackageById)
+const [payVia, setPayVia] = React.useState('pay at stay');
+
+const handleRadioButtonChange = (event) => {
+    setPayVia(event.target.value);
+};
+
+const onBookingButtonClick = () => {
+    dispatch(travelPackageActions.bookTravelPackage({
+        payment_type: payVia, 
+        paid_amount: 0, 
+        total_amount: travelPackageById.priceperperson * total_traveler,
+        total_traveler: total_traveler, 
+        user_id: user.id, 
+        travel_package: travelPackageById.title,
+        travel_package_id: packageId,
+        travel_agency: travelPackageById.travel_agency, 
+        start_date: travelPackageById.start_date,
+        end_date: travelPackageById.end_date,
+        name: guest.name,
+        email: guest.email
+    }))
+}
+
 
 if(!travelPackageById){
   return <h1>Getting Info</h1>
@@ -85,8 +114,27 @@ if(!travelPackageById){
                 </Typography>
             </Box>
           </Box>
+          <Box></Box>
           <PaymentForm guest={guest} onGuestChange={onGuestChange} />
-          <Khalti total_amount={travelPackageById.priceperperson * total_traveler} />
+          <FormControl sx={{ width: '100%', textAlign: 'left', marginTop: '2em'}}>
+                <FormLabel id="demo-controlled-radio-buttons-group" sx={{fontWeight: 600}}>Select Payment method:</FormLabel>
+                <RadioGroup
+                    aria-labelledby="demo-controlled-radio-buttons-group"
+                    name="controlled-radio-buttons-group"
+                    value={payVia}
+                    onChange={handleRadioButtonChange}
+                    sx={{display: 'inline-block'}}
+                >
+                    <FormControlLabel value="pay at stay" control={<Radio />} label="Pay at stay" />
+                    <FormControlLabel value="khalti" control={<Radio />} label="Khalti" />
+                </RadioGroup>
+           </FormControl>
+
+                {
+                    payVia === 'khalti' ? <Khalti total_amount={travelPackageById.priceperperson * total_traveler} value={payVia} /> : (
+                        <Button variant='contained' onClick={onBookingButtonClick}>Book</Button>
+                    )
+                }
       </Box>
   </Container>
   )

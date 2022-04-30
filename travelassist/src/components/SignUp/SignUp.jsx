@@ -99,8 +99,8 @@ function SignUp() {
                 mt={2}
                 value={signupInfo.email}
                 onChange={handleChange}
-                // error={type === 'Invalid Username'}
-                // helperText={type === 'Invalid Username' && message}
+                // error
+                // helperText="user with this email already exists"
             />
             <TextField
                 margin="normal"

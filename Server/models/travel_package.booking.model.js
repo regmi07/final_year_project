@@ -3,7 +3,9 @@ const sql = require("./database.js")
 const TravelPackageBooking = function(travelPackageBooking){
     this.total_traveler = travelPackageBooking.total_traveler
     this.user_id = travelPackageBooking.user_id
-    this.travel_package = travelPackageBooking.travel_package
+    this.booked_by = travelPackageBooking.booked_by
+    this.email = travelPackageBooking.email
+    this.travel_package = travelPackageBooking.travel_package_by_id
     this.payment_id = travelPackageBooking.payment_id
 }
 
@@ -43,10 +45,11 @@ TravelPackageBooking.findById = (id,result) => {
 TravelPackageBooking.findByUser = (user_id, result) => {
     sql.query(
         `SELECT b.booking_id, b.total_traveler, b.booked_on, 
-        tp.title as "Travel Package" ,
+        tp.title as "travel_package" ,
         (SELECT name FROM destinations WHERE id=tp.from_destination) as "from", 
         (SELECT name FROM destinations WHERE id=tp.to_destination) as "to", 
-        tp.start_date, tp.end_date, p.paidamount 
+        (SELECT name FROM travel_agency WHERE id=tp.travel_agency) as "travel_agency", 
+        tp.start_date, tp.end_date, p.paidamount, p.total_amount, p.paymenttype
         FROM travel_package_booking b 
         JOIN travel_package tp ON b.travel_package = tp.id 
         JOIN Payment p ON b.payment_id = p.payment_id  

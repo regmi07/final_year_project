@@ -6,7 +6,7 @@ module.exports = app => {
     var router = require("express").Router()
 
     router.post('/', [auth.verifyToken], payment.create)
-    router.post('/khalti', verifypayment.verifypayment)
+    router.post('/khalti', payment.createKhaltiPayment)
     
     app.use('/payment', router)
 }

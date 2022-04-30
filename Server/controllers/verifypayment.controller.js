@@ -16,7 +16,7 @@ exports.verifypayment = (req,res) => {
 	axios.post("https://khalti.com/api/v2/payment/verify/", data, config)
     .then(response => {
         console.log(response.data);
-        res.send({'message': 'payment successful'})
+        // res.send({'message': 'payment successful'})
     })
     .catch(error => {
         console.log(error);

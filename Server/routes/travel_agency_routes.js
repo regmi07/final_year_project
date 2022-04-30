@@ -6,10 +6,12 @@ module.exports = app => {
 
     router.post("/",travelAgency.create)
 
+    router.get("/unverifiedtravelagency", travelAgency.getUnverifiedTravelAgency)
     router.get("/:id", travelAgency.findById)
 
     router.put("/update/:id", [auth.verifyToken, auth.isOwner], travelAgency.updateAll)
     router.put("/updateuser/:id", [auth.verifyToken,auth.isAdmin], travelAgency.updateUser)
+    router.put("/verifytravelagency/:agencyId", travelAgency.verifyTravelAgency)
 
     app.use('/travelagency', router)
 }

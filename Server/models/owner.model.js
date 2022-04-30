@@ -55,7 +55,11 @@ Owner.findById = (id, result) => {
 }
 
 Owner.getAll = (ownername,result) => {
-    let query = "SELECT * FROM owners "
+    let query = `SELECT o.id, o.coverimage, o.name, o.location, o.category,o.cancellation, o.pay_at_stay, u.name as 'user', (SELECT COUNT(*) FROM reviews WHERE owner = o.id) as 'totReview', 
+    (SELECT avg(rating) FROM reviews WHERE owner = o.id) as "avgRating"  
+    FROM owners o 
+    JOIN users u ON u.id = o.user`
+    // let query = `SELECT * From owners`
     if(ownername){
         query += `WHERE name LIKE '%${ownername}%'`
     }
@@ -70,6 +74,36 @@ Owner.getAll = (ownername,result) => {
         console.log("owners: ", res)
         result(null,res)
     })
+}
+
+Owner.getUnVerifiedOwner = (result) => {
+    sql.query(`SELECT * FROM owners WHERE isVerified = 0`, (err,res) => {
+        if(err){
+            console.log('error: ', err)
+            result(err,null)
+            return
+        }
+
+        if(res.length){
+            console.log('found unverified hotels', res)
+            result(null,res)
+            return
+        }
+
+        result({kind: "not_found"},null)
+    })
+}
+
+Owner.verifyOwner = (hotelId, result) => {
+    sql.query(`UPDATE owners SET isVerified = 1 WHERE id = ${hotelId}`, (err,res) => {
+        if(err){
+            console.log('error while verifying owner: ', err)
+            result(err,null)
+            return
+        }
+    })
+
+    result(null, {hotelId})
 }
 
 Owner.getHotelsAvailableForBookingByDestination = (bookinginfo, result) => {

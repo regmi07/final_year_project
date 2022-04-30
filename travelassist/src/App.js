@@ -17,6 +17,7 @@ import Profile from './Pages/Profile/Profile'
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
 import VisitList from './Pages/VisitList/VisitList'
 import AddVisitedList from './Pages/VisitList/AddVisitedList';
+import BookingHistory from './Pages/Booking/BookingHistory'
 
 import {useSelector, useDispatch} from 'react-redux'
 import {visitListActions} from './redux/action/visit_list.action'
@@ -57,6 +58,7 @@ function App() {
               <Route path="/profile" element={<Profile />} /> 
               <Route path="/visitlist" element={<VisitList />} />
               <Route path='/addvisitedlist/:destinationId' element={<AddVisitedList />} />
+              <Route path='/bookinghistory' element={<BookingHistory />} />
             </Route>
           </Route>
         </Routes>

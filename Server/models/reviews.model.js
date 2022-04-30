@@ -22,9 +22,27 @@ Review.create = (newReview, result) => {
     })
 }
 
-// Review.findById = (user, result) => {
-    
-// }
+Review.findAll = (result) => {
+    sql.query(`SELECT CONCAT(r.user, ' ', r.owner) as "id", r.review_title, r.review, r.rating, u.name, 
+    (SELECT count(*) from liked_hotel_reviews WHERE review_for = r.owner AND review_by = r.user) as 'likes'  
+    FROM reviews r 
+    JOIN users u ON r.user = u.id `, (err,res) => {
+        if(err){
+            console.log('err occured while getting reviews by hotel')
+            result(err,null)
+            return
+        }
+
+        if(res.length) {
+            console.log("found reviews: ", res)
+            result(null,[...res])
+            return
+        }
+
+        //not found reviews with the id
+        result({kind: "not_found"}, null)
+    })
+}
 
 Review.findByOwner = (owner, result) => {
     sql.query(`SELECT r.user, r.owner as "hotel", r.review_title, r.review, r.rating, r.date_of_stay, r.updated_on, u.username, u.name, u.profilepicture, 
@@ -99,6 +117,7 @@ Review.remove = (user, hotel, result) => {
           }
       
           if (res.affectedRows == 0) {
+              console.log("not_found")
             // not found reviews with the id
             result({ kind: "not_found" }, null);
             return;
