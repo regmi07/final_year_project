@@ -60,15 +60,28 @@ exports.findOne = (req, res) => {
 
 //find all the hotels available for booking on selected destinations
 exports.getHotelsAvailableForBookingByDestination = (req, res) => {
-    Owner.getHotelsAvailableForBookingByDestination(req.query, (err,data) => {
-        if(err)
-            res.status(500).send({
-                message: err.message || "Some error occured while retrieving owner by destination id"
-            })
-        else
-            res.send(data)
-        console.log(data)
-    })
+    const dest_id = req.query.destination
+    if(dest_id !== 'undefined'){
+        Owner.getHotelsAvailableForBookingByDestination(req.query, (err,data) => {
+            if(err)
+                res.status(500).send({
+                    message: err.message || "Some error occured while retrieving owner by destination id"
+                })
+            else
+                res.send(data)
+            console.log(data)
+        })
+    }else{
+        Owner.getAllAvailableHotels(req.query, (err,data) => {
+            if(err)
+                res.status(500).send({
+                    message: err.message || "Some error occured while retrieving available hotels"
+                })
+            else
+                res.send(data)
+            console.log(data)
+        })
+    }
 }
 
 exports.getByDestination = (req, res) => {

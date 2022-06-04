@@ -23,6 +23,10 @@ export function updateCheckIn(state = initialState, action){
             return {
                 ...state, rooms: action.rooms_traveller.rooms, traveller: action.rooms_traveller.traveller
             }
+        case updateCheckinConstants.UPDATE_DESTINATION:
+            return {
+                ...state, destination_id: action.destination
+            }
         default: 
             return state
     }

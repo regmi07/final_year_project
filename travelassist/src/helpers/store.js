@@ -35,6 +35,9 @@ import {visitedListById} from '../redux/reducer/visit_list/visited_list_by_id.re
 import {getDestinationById} from '../redux/reducer/destinations/getDestinationById.reducer'
 import {getAllDestination} from '../redux/reducer/destinations/getAllDestination.reducer'
 import {hotelBookingByUser} from '../redux/reducer/hotels/booking/bookingbyuser.reducer'
+import {allThingsToDo} from '../redux/reducer/things_to_do/getAllThingsToDo.reducer'
+import {thingsToDoById} from '../redux/reducer/things_to_do/getThingsToDoById.reducer'
+import { thingsToDoByDestinations } from '../redux/reducer/things_to_do/getThingsToDoByDestination.reducer';
 
 export const store = configureStore({
   reducer: {
@@ -73,6 +76,9 @@ export const store = configureStore({
     visitedListById: visitedListById,
     getDestinationById: getDestinationById,
     getAllDestination: getAllDestination,
-    hotelBookingByUser: hotelBookingByUser
+    hotelBookingByUser: hotelBookingByUser,
+    allThingsToDo: allThingsToDo,
+    thingsToDoById: thingsToDoById,
+    thingsToDoByDestinations: thingsToDoByDestinations 
   },
 });

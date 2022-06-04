@@ -17,7 +17,8 @@ import Profile from './Pages/Profile/Profile'
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
 import VisitList from './Pages/VisitList/VisitList'
 import AddVisitedList from './Pages/VisitList/AddVisitedList';
-import BookingHistory from './Pages/Booking/BookingHistory'
+import BookingHistory from './Pages/Booking/BookingHistory';
+import SpecificThingsToDo from './Pages/ThingsToDo/SpecificThingsToDo';
 
 import {useSelector, useDispatch} from 'react-redux'
 import {visitListActions} from './redux/action/visit_list.action'
@@ -47,12 +48,13 @@ function App() {
           <Route element={<WithNav />} >
             <Route path='/' element={<HomePage />} exact />
             <Route path='/destinations/:id' element={<SpecificDestination />} />
-            <Route path='/hotels/bydestination/:destid' element={<Hotel />} />
+            <Route path='/hotels' element={<Hotel />} />
             <Route path='/hotels/:hotelId' element={<SpecificHotel />} />
             <Route path='/hotels/booking/:hotelId' element={<Booking />} />
             <Route path='/travelpackage' element={<TravelPackage />} />
             <Route path='/travelpackage/:packageId' element={<SpecificTravelPackage />} />
             <Route path='/travelpackage/booking/:packageId' element={<TravelPackageBooking />} />
+            <Route path='/thingstodo/:thingstodoid' element={<SpecificThingsToDo />} />
             <Route element={<ProtectedRoute />}>
               <Route path="/hotels/addreview/:hotelId" element={<AddHotelReview />} />
               <Route path="/profile" element={<Profile />} /> 

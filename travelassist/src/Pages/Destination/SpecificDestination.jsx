@@ -89,7 +89,7 @@ function SpecificDestination() {
         }}>
           {
             specificDestinationRow.map((destrow, index) => {
-              return <Row key={index} title={destrow.title} fetchFrom={destrow.fetch} dest={destinationById?.name} />
+              return <Row key={index} title={destrow.title} fetchFrom={(destrow.title === 'Things to do in ' || destrow.title === 'Hotels in ') ? `${destrow.fetch}/${id}` : destrow.fetch} dest={destinationById?.name} />
             })
           }
         </Box>

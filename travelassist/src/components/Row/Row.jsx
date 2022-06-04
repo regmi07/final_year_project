@@ -32,7 +32,13 @@ function Row({title, fetchFrom, dest}) {
             <div className="row">
                     {
                         datas.length > 0 && datas.map((data) => {
-                            return <Card data={data} url={fetchFrom} key={data.id} />
+                            let url = fetchFrom
+                            if(fetchFrom.match(/^\/owners/))
+                                url = '/hotels'
+                            else if(fetchFrom.match(/^\/thingstodo/))
+                                url = '/thingstodo'
+                        
+                            return <Card data={data} url={url} isDest={fetchFrom === '/destinations'} key={data.id} />
                         })
                     }
             </div>

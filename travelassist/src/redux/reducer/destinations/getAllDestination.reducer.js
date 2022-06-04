@@ -9,7 +9,7 @@ export function getAllDestination(state={}, action){
         case destinationConstants.GET_ALL_DESTINATION_SUCCESS:
             return {
                 gotAllDestinations: true,
-                allDestinations: action.allDestinations
+                allDestinations: action.allDestination
             }
         case destinationConstants.GET_ALL_DESTINATION_FAILURE:
             return {}

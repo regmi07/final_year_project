@@ -3,7 +3,8 @@ import {updateCheckinConstants} from '../constants/index'
 export const updateCheckInAction = {
     updateCheckInDate,
     updateCheckOutDate,
-    updateRoomsAndTraveller
+    updateRoomsAndTraveller,
+    updateDestination
 }
 
 function updateCheckInDate(checkInDate){
@@ -16,4 +17,8 @@ function updateCheckOutDate(checkOutDate){
 
 function updateRoomsAndTraveller(rooms_traveller){
     return {type: updateCheckinConstants.UPDATE_ROOMS_TRAVELLER, rooms_traveller}
+}
+
+function updateDestination(destination){
+    return {type: updateCheckinConstants.UPDATE_DESTINATION, destination}
 }

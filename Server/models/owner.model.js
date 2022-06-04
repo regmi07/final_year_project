@@ -134,6 +134,33 @@ Owner.getHotelsAvailableForBookingByDestination = (bookinginfo, result) => {
     })
 }
 
+Owner.getAllAvailableHotels = (bookinginfo, result) => {
+    sql.query(
+        `SELECT o.id, o.name, o.destinationid, r.price as "pricepernight", 
+        (SELECT avg(rating) FROM reviews where owner = id) as 'average_rating',
+        o.coverimage, o.cancellation, o.pay_at_stay 
+        From owners o JOIN rooms r on o.id = r.hotel 
+        LEFT JOIN booked_room br ON r.roomid = br.room_id 
+        LEFT JOIN booking b on b.booking_id = br.booking_id 
+        WHERE (br.room_id IS NULL OR (b.check_out_date < '${bookinginfo.checkindate}' OR b.check_in_date > '${bookinginfo.checkoutdate}')) 
+        GROUP BY o.name HAVING COUNT(*) >= ${bookinginfo.rooms}`
+    , (err,res) => {
+        if(err){
+            console.log('error: ', err)
+            result(err,null)
+            return
+        }
+
+        if(res.length){
+            console.log('found hotels', res)
+            result(null,res)
+            return
+        }
+
+        result({kind: "not_found"},null)
+    })
+}
+
 Owner.getByDestination = (destid, result) => {
     sql.query(`SELECT * FROM owners WHERE destinationid = ${destid}`, (err, res) => {
         if(err){

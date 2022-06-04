@@ -13,7 +13,7 @@ import {Link} from 'react-router-dom'
 import {useSelector, useDispatch} from 'react-redux'
 import {visitListActions} from '../../redux/action/visit_list.action'
 
-export default function CardComponent({data, url}) {
+export default function CardComponent({data, url, isDest}) {
 
   const {user} = useSelector(state => state.signin)
   const {planToVisitListByUser} = useSelector(state => state.planToVisitListByUser)
@@ -64,9 +64,11 @@ const onCheckBoxChange = () => {
           </Typography>
         </CustomCardContent>
       </Box>
-      <CustomCardAction>
-        <Checkbox label='favourite' checked={isInList()} onChange={onCheckBoxChange} icon={<FavoriteBorder fontSize="medium" />} checkedIcon={<Favorite fontSize="medium" sx={{color: '#ff5d5d'}} />} />
-      </CustomCardAction>
+      {
+        isDest && <CustomCardAction>
+          <Checkbox label='favourite' checked={isInList()} onChange={onCheckBoxChange} icon={<FavoriteBorder fontSize="medium" />} checkedIcon={<Favorite fontSize="medium" sx={{color: '#ff5d5d'}} />} />
+        </CustomCardAction>
+      }
     </Card>
   );
 }

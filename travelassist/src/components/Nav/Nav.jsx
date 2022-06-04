@@ -32,8 +32,42 @@ import {useSelector} from 'react-redux'
 
 const drawerWidth = 240;
 
-const pages = ['Destinations', 'Hotels', 'Travel Package', 'Travel Blog'];
-const settings = ['Profile', 'Account', 'Logout'];
+const pages = [
+    {
+        name: 'Destinations',
+        link: '/destinations'
+    },
+    {
+        name: 'Hotels',
+        link: '/hotels' 
+    },
+    {
+        name: 'Travel Package',
+        link: '/travelpackage'
+    },
+    {
+        name: 'Attractions',
+        link: '/attractions'
+    } 
+];
+const settings = [
+    {
+        name: 'Profile',
+        link: '/profile'
+    }, 
+    {
+        name: 'Visit List',
+        link: '/visitlist'
+    }, 
+    {
+        name: 'Bookings',
+        link: '/bookinghistory'
+    }, 
+    {
+        name: 'Logout',
+        link: '/abc'
+    }
+];
 
 const Nav = () => {
     const theme = useTheme()
@@ -146,11 +180,11 @@ const Nav = () => {
                             <List>
                                 {
                                     pages.map((text, index) => (
-                                    <ListItem button key={text}>
+                                    <ListItem button key={text.name} component={Link} to={text.link} onClick={handleCloseNavMenu}>
                                         <ListItemIcon>
                                         {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                                         </ListItemIcon>
-                                        <ListItemText primary={text} />
+                                        <ListItemText primary={text.name} />
                                     </ListItem>
                                     ))
                                 }
@@ -158,11 +192,11 @@ const Nav = () => {
                             <Divider />
                             <List>
                                 {settings.map((text, index) => (
-                                    <ListItem button key={text}>
+                                    <ListItem button key={text.name} component={Link} to={text.link}>
                                     <ListItemIcon>
                                         {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                                     </ListItemIcon>
-                                    <ListItemText primary={text} />
+                                    <ListItemText primary={text.name} />
                                     </ListItem>
                                 ))}
                             </List>
@@ -185,7 +219,9 @@ const Nav = () => {
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'center' }}>
                         {pages.map((page) => (
                             <Button
-                                key={page}
+                                component={Link}
+                                to={page.link}
+                                key={page.name}
                                 onClick={handleCloseNavMenu}
                                 sx={{
                                     color: '#000',
@@ -198,7 +234,7 @@ const Nav = () => {
                                     },
                                 }}
                             >
-                                {page}
+                                {page.name}
                             </Button>
                         ))}
                     </Box>
@@ -228,8 +264,13 @@ const Nav = () => {
                                     onClose={handleCloseUserMenu}
                                 >
                                     {settings.map((setting) => (
-                                    <MenuItem key={setting} onClick={handleCloseUserMenu} sx={{display: 'block !important', padding: '.4em 1.2em !important'}}>
-                                        <Typography textAlign="center">{setting}</Typography>
+                                    <MenuItem key={setting.name} 
+                                        onClick={handleCloseUserMenu} 
+                                        sx={{display: 'block !important', padding: '.4em 1.2em !important'}}
+                                        component={Link}
+                                        to={setting.link}
+                                    >
+                                        <Typography textAlign="center">{setting.name}</Typography>
                                     </MenuItem>
                                     ))}
                                 </Menu>

@@ -10,27 +10,20 @@ import {useSelector, useDispatch} from 'react-redux'
 
 import {hotelActions} from '../../redux/action'
 
-import {useParams} from 'react-router-dom'
-
 function Hotel() {
-  const {checkindate, checkoutdate, rooms} = useSelector(state => state.updateCheckIn)
+  const {checkindate, checkoutdate, rooms, destination_id} = useSelector(state => state.updateCheckIn)
   const {availableHotels, gettingAvailableHotels} = useSelector(state => state.availableHotels)
-
-  console.log(rooms)
-
-  const {destid} = useParams()
 
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(hotelActions.getAvailableHotelsByDestination(checkindate,checkoutdate, rooms, destid))
-  },[rooms, checkindate, checkoutdate])
+    dispatch(hotelActions.getAvailableHotelsByDestination(checkindate,checkoutdate, rooms, destination_id))
+  },[rooms, checkindate, checkoutdate, destination_id])
 
-  console.log(availableHotels)
   return (
     <Container maxWidth='lg'>
         <HotelHero>
-          <CheckInCheckOut />  
+          <CheckInCheckOut isHotelPage={true} />  
         </HotelHero>
         <div className="cardcontainer">
           {

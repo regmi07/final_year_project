@@ -11,10 +11,10 @@ function getAllDestination(){
     return dispatch => {
         dispatch(request())
 
-        destinationService.getTopDestination()
+        destinationService.getAllDestination()
         .then(
-            allDestinations => {
-                dispatch(success(allDestinations))
+            allDestination => {
+                dispatch(success(allDestination))
             },
             error => {
                 const errormessage = error.response?.data?.message
@@ -31,10 +31,10 @@ function getAllDestination(){
         }
     }
 
-    function success(allDestinations){
+    function success(allDestination){
         return {
             type: destinationConstants.GET_ALL_DESTINATION_SUCCESS,
-            allDestinations
+            allDestination
         }
     }
 

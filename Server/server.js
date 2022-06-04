@@ -37,6 +37,8 @@ require('./routes/travel_package_image.routes.js')(app)
 require('./routes/itinerary.routes.js')(app)
 require('./routes/google.auth.routes.js')(app)
 require('./routes/visit_list.routes.js')(app)
+require('./routes/things_to_do.routes.js')(app)
+require('./routes/things_to_do_image.routes.js')(app)
 
 const PORT = process.env.PORT || 8082
 app.listen(PORT, () => {

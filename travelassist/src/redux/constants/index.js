@@ -11,6 +11,7 @@ import {updateDateAndDestinationConstants} from './update_date_and_destination.c
 import {weatherConstant} from './weather.constants'
 import {visitListConstants} from './visit_list.constants'
 import {destinationConstants} from './destination.constant'
+import {thingsToDoConstants} from './things_to_do.constants'
 
 export {
     messageConstants, 
@@ -25,5 +26,6 @@ export {
     updateDateAndDestinationConstants,
     weatherConstant,
     visitListConstants,
-    destinationConstants
+    destinationConstants,
+    thingsToDoConstants
 }

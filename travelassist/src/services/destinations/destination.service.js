@@ -4,7 +4,8 @@ export const destinationService = {
     getTopDestination,
     getPopularDestination,
     getNearbyDestination,
-    getDestinationById
+    getDestinationById,
+    getAllDestination
 }
 
 function getTopDestination(){
@@ -42,6 +43,16 @@ function getDestinationById(id){
         return axios.get(`destinations/${id}`)
         .then(handleResponse)
         .then((destination) => destination)
+    }catch(err){
+        console.log(err)
+    }
+}
+
+function getAllDestination(){
+    try{
+        return axios.get(`destinations`)
+        .then(handleResponse)
+        .then((allDestination) => allDestination)
     }catch(err){
         console.log(err)
     }
